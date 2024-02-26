@@ -1,3 +1,6 @@
+package Inicio;
+
+
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -234,31 +237,7 @@ public class DataForge extends javax.swing.JFrame {
     }//GEN-LAST:event_ArchivoMouseClicked
 
     private void OpenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OpenMouseClicked
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Abrir archivo");
-
-        int userSelection = fileChooser.showOpenDialog(this);
-        if (userSelection == JFileChooser.APPROVE_OPTION) {
-            File fileToOpen = fileChooser.getSelectedFile();
-            String fileName = fileToOpen.getName();
-
-            try (BufferedReader reader = new BufferedReader(new FileReader(fileToOpen))) {
-                StringBuilder sb = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line).append("\n");
-                }
-
-                JTextArea textArea = new JTextArea();
-                textArea.setText(sb.toString());
-
-                JScrollPane scrollPane = new JScrollPane(textArea);
-
-                tabbedPane.addTab(fileName, scrollPane);
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(this, "Error al abrir el archivo", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+        
     }//GEN-LAST:event_OpenMouseClicked
 
     /**

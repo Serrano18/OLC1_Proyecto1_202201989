@@ -256,4 +256,8 @@ COMENTARIOM = {MENOR}{EXCLAMACION}~{EXCLAMACION}{MAYOR}
 <YYINITIAL> [ \t\r\n\f]     {/* Espacios en blanco se ignoran */}
 
 //------> Errores Léxicos 
-[^] { System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn); }
+[^] { arreglos_publicos.contadorE= arreglos_publicos.contadorE+1;
+        String descrip = "El caracter " + yytext() + "no pertenece al lenguaje";
+         arreglos_publicos.contadorE.errores.add(new Error( arreglos_publicos.contadorE,yyline,yycolumn,descrip,"Lexico"));
+ System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn);
+ }

@@ -79,7 +79,7 @@ public class Main {
                             )end;
                             Histogram(
                                  titulo::char[] = "Analisis de Arreglo" end;
-                                 values::char[] = [2,2,2,5,5,7,8] end;
+                                 values::double = [2,2,2,5,5,7,8] end;
                                  EXEC Histogram end;
                                  ) end;
                          END PROGRAM

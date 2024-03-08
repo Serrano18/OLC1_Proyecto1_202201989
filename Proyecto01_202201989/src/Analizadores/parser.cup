@@ -1,0 +1,145 @@
+//------------------Importaciones-----------------------------
+package Analizadores; 
+//aqui va el arbol, gramatica, lista errores
+import java_cup.runtime.*;
+import java.util.LinkedList;
+
+//------> Codigo para el parser, variables, metodos
+
+//------> Declaracion de variables, funciones y funciones de error
+class Parser;
+
+parser code 
+{:
+    public static String resultado = ""; 
+    //public static LinkedList<TError> TablaEL = new LinkedList<TError>();
+    public void syntax_error(Symbol s)
+    {
+            System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado" );
+    }
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+    {
+            System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Sin recuperacion." );
+    }
+:}
+//------> Codigo para las acciones gramaticales (no tocar)
+action code
+{:  :}
+//------> Declaración de terminales
+
+terminal PUNTOYCOMA, DOSPUNTOS, ASIGNACION, PUNTOSDOBLE;
+terminal R_VAR,ID, R_CHAR, R_DOUBLE,R_END;
+terminal R_PROGRAM;
+terminal CADENA;
+terminal DECIMAL;
+terminal COMILLA,COMA, IDARR, R_ARR,CORCHETEA,CORCHETEC;
+terminal R_SUM, R_RES, R_MUL,R_DIV, R_MOD;
+terminal R_MEDIA, R_MEDIANA, R_MODA,R_VARIANZA,R_MAX,R_MIN,PARENTESIS_A,PARENTESIS_C;
+terminal IGUAL,R_CONSOLE,R_PRINT;
+terminal R_COLUMN, ASIGNACION2;
+terminal R_BAR,R_LINE,R_PIE,R_HISTOGRAM;
+terminal R_TITULO, R_EJEX,R_EJEY,R_TITULOX,R_TITULOY,R_EXEC,R_VALUES,R_LABEL;
+
+//------> Declaracion de no terminales
+nonterminal inicio;
+nonterminal instruccion;
+nonterminal lista_instr;
+nonterminal expresion;
+nonterminal declaracion_variable;
+nonterminal tipo_datos;
+nonterminal variable, declaracion_arreglos,lista_expre,arreglo;
+nonterminal funciones,aritmetica,estadistica;
+nonterminal imprimir_expresiones;
+nonterminal imprimir_arreglos,expresion_arreglo;
+nonterminal tipo_grafica,sentencia,lista_sentencia,grafica;
+nonterminal parametro_arreglo_double,parametro_arreglo_char,parametrocadena,parametros_grafica;
+//------> PRECEDENCIA
+
+//------> Definir Simbolo Inicial
+start with inicio; 
+
+// ------------>  Producciones  <------------
+
+inicio ::= R_PROGRAM lista_instr R_END R_PROGRAM
+;
+
+lista_instr ::= lista_instr instruccion
+    | instruccion
+;
+
+instruccion ::= declaracion_variable 
+    |declaracion_arreglos
+    |imprimir_expresiones
+    |imprimir_arreglos
+    |grafica
+;
+
+//declaraciones variables y arreglo
+declaracion_variable ::= R_VAR DOSPUNTOS tipo_datos PUNTOSDOBLE  ID ASIGNACION  expresion:e R_END PUNTOYCOMA {: System.out.println(e); :}
+;
+
+declaracion_arreglos ::= R_ARR DOSPUNTOS tipo_datos PUNTOSDOBLE IDARR ASIGNACION arreglo:a R_END PUNTOYCOMA {:System.out.println("Funciona" + a);:}
+    
+;
+arreglo ::= CORCHETEA lista_expre:l CORCHETEC  {:RESULT="lista";:}
+    |   IDARR:a {:RESULT=a.toString();:}
+;
+lista_expre ::= lista_expre:l COMA expresion:e {:System.out.println(","+ e);:}
+    |   expresion:e2{: System.out.println(e2);:}
+;
+
+funciones ::= aritmetica PARENTESIS_A expresion COMA expresion PARENTESIS_C 
+        |estadistica PARENTESIS_A arreglo PARENTESIS_C
+;
+
+aritmetica ::= R_SUM | R_RES | R_DIV | R_MUL | R_MOD
+;
+
+estadistica ::= R_MEDIA | R_MEDIANA | R_VARIANZA | R_MAX | R_MODA | R_MIN
+;
+
+tipo_datos ::= R_CHAR
+    | R_DOUBLE                          
+;
+
+expresion ::= funciones
+            |CADENA:c {: RESULT=c.toString(); :}
+            | DECIMAL:c {: RESULT=c.toString(); :}
+            | ID:c {: RESULT=c.toString(); :}
+            
+;
+expresion_arreglo ::= CADENA
+        |ID
+    ;
+    
+//impresiones
+imprimir_expresiones ::= R_CONSOLE PUNTOSDOBLE R_PRINT IGUAL lista_expre R_END PUNTOYCOMA
+;
+imprimir_arreglos ::= R_CONSOLE PUNTOSDOBLE R_COLUMN IGUAL expresion_arreglo ASIGNACION2 arreglo R_END PUNTOYCOMA
+;
+
+//graficas
+grafica::= tipo_grafica PARENTESIS_A parametros_grafica PARENTESIS_C R_END PUNTOYCOMA
+;
+parametros_grafica ::= lista_sentencia R_EXEC tipo_grafica R_END PUNTOYCOMA
+;
+lista_sentencia ::= lista_sentencia sentencia
+    |sentencia
+;
+sentencia ::= R_TITULO parametrocadena
+    |R_VALUES parametro_arreglo_double
+    |R_LABEL parametro_arreglo_char
+    |R_EJEX parametro_arreglo_char
+    |R_EJEY parametro_arreglo_double
+    |R_TITULOX parametrocadena
+    |R_TITULOY parametrocadena
+;
+tipo_grafica ::= R_BAR | R_LINE | R_PIE |R_HISTOGRAM
+;
+parametrocadena::= PUNTOSDOBLE R_CHAR IGUAL expresion_arreglo R_END PUNTOYCOMA
+;
+parametro_arreglo_char ::=  PUNTOSDOBLE R_CHAR IGUAL arreglo R_END PUNTOYCOMA
+;
+parametro_arreglo_double ::= PUNTOSDOBLE R_DOUBLE IGUAL arreglo R_END PUNTOYCOMA
+;
+ 

@@ -15,7 +15,7 @@ public class Token {
     private String token;
     private String tipo;
 
-    public Token(int id, int fila, int columna, String token, String tipo=null) {
+    public Token(int id, int fila, int columna, String token, String tipo) {
         this.id = id;
         this.fila = fila;
         this.columna = columna;

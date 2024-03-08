@@ -7,7 +7,7 @@ package Analizadores;
 //aqui va los tokens y la lista de errore
 import java_cup.runtime.*;
 import java.util.ArrayList;
-
+import clases.*
 //-------> Directivas (No tocar)
 
 @SuppressWarnings("fallthrough")
@@ -470,7 +470,7 @@ public class analizadorLexico implements java_cup.runtime.Scanner {
   private boolean zzEOFDone;
 
   /* user code: */
-   // public ArrayList<Token> token = new ArrayList<Token>();
+  
 
     StringBuffer buffer = new StringBuffer();
 
@@ -919,52 +919,72 @@ public class analizadorLexico implements java_cup.runtime.Scanner {
           // fall through
           case 52: break;
           case 3:
-            { return new Symbol(ParserSym.PARENTESIS_A, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+            arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"SIMBOLO"));
+            return new Symbol(ParserSym.PARENTESIS_A, yycolumn, yyline, yytext());
             }
           // fall through
           case 53: break;
           case 4:
-            { return new Symbol(ParserSym.PARENTESIS_C, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+            arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"SIMBOLO"));
+            return new Symbol(ParserSym.PARENTESIS_C, yycolumn, yyline, yytext());
             }
           // fall through
           case 54: break;
           case 5:
-            { return new Symbol(ParserSym.COMA, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+            arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"SIMBOLO"));
+            return new Symbol(ParserSym.COMA, yycolumn, yyline, yytext());
             }
           // fall through
           case 55: break;
           case 6:
-            { return new Symbol(ParserSym.DECIMAL, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                    arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"DOUBLE"));
+                    return new Symbol(ParserSym.DECIMAL, yycolumn, yyline, yytext());
             }
           // fall through
           case 56: break;
           case 7:
-            { return new Symbol(ParserSym.DOSPUNTOS, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+            arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"SIMBOLO"));
+            return new Symbol(ParserSym.DOSPUNTOS, yycolumn, yyline, yytext());
             }
           // fall through
           case 57: break;
           case 8:
-            { return new Symbol(ParserSym.PUNTOYCOMA, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+            arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"SIMBOLO"));
+            return new Symbol(ParserSym.PUNTOYCOMA, yycolumn, yyline, yytext());
             }
           // fall through
           case 58: break;
           case 9:
-            { return new Symbol(ParserSym.IGUAL, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+            arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"SIMBOLO"));
+            return new Symbol(ParserSym.IGUAL, yycolumn, yyline, yytext());
             }
           // fall through
           case 59: break;
           case 10:
-            { return new Symbol(ParserSym.ID, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                    arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"ID"));
+                    return new Symbol(ParserSym.ID, yycolumn, yyline, yytext());
             }
           // fall through
           case 60: break;
           case 11:
-            { return new Symbol(ParserSym.CORCHETEA, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+            arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"SIMBOLO"));
+            return new Symbol(ParserSym.CORCHETEA, yycolumn, yyline, yytext());
             }
           // fall through
           case 61: break;
           case 12:
-            { return new Symbol(ParserSym.CORCHETEC, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+            arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"SIMBOLO"));
+            return new Symbol(ParserSym.CORCHETEC, yycolumn, yyline, yytext());
             }
           // fall through
           case 62: break;
@@ -974,187 +994,261 @@ public class analizadorLexico implements java_cup.runtime.Scanner {
           // fall through
           case 63: break;
           case 14:
-            { return new Symbol(ParserSym.CADENA, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                    arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"STRING"));   
+                    return new Symbol(ParserSym.CADENA, yycolumn, yyline, yytext());
             }
           // fall through
           case 64: break;
           case 15:
-            { return new Symbol(ParserSym.ASIGNACION2, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+            arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"SIMBOLO"));
+            return new Symbol(ParserSym.ASIGNACION2, yycolumn, yyline, yytext());
             }
           // fall through
           case 65: break;
           case 16:
-            { return new Symbol(ParserSym.PUNTOSDOBLE, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+            arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"SIMBOLO"));
+            return new Symbol(ParserSym.PUNTOSDOBLE, yycolumn, yyline, yytext());
             }
           // fall through
           case 66: break;
           case 17:
-            { return new Symbol(ParserSym.ASIGNACION, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+            arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"SIMBOLO"));
+            return new Symbol(ParserSym.ASIGNACION, yycolumn, yyline, yytext());
             }
           // fall through
           case 67: break;
           case 18:
-            { return new Symbol(ParserSym.IDARR, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                    arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"ID"));
+                    return new Symbol(ParserSym.IDARR, yycolumn, yyline, yytext());
             }
           // fall through
           case 68: break;
           case 19:
-            { return new Symbol(ParserSym.R_ARR, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_ARR, yycolumn, yyline, yytext());
             }
           // fall through
           case 69: break;
           case 20:
-            { return new Symbol(ParserSym.R_DIV, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_DIV, yycolumn, yyline, yytext());
             }
           // fall through
           case 70: break;
           case 21:
-            { return new Symbol(ParserSym.R_END, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_END, yycolumn, yyline, yytext());
             }
           // fall through
           case 71: break;
           case 22:
-            { return new Symbol(ParserSym.R_MAX, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_MAX, yycolumn, yyline, yytext());
             }
           // fall through
           case 72: break;
           case 23:
-            { return new Symbol(ParserSym.R_MIN, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_MIN, yycolumn, yyline, yytext());
             }
           // fall through
           case 73: break;
           case 24:
-            { return new Symbol(ParserSym.R_MOD, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_MOD, yycolumn, yyline, yytext());
             }
           // fall through
           case 74: break;
           case 25:
-            { return new Symbol(ParserSym.R_MUL, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_MUL, yycolumn, yyline, yytext());
             }
           // fall through
           case 75: break;
           case 26:
-            { return new Symbol(ParserSym.R_RES, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_RES, yycolumn, yyline, yytext());
             }
           // fall through
           case 76: break;
           case 27:
-            { return new Symbol(ParserSym.R_SUM, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_SUM, yycolumn, yyline, yytext());
             }
           // fall through
           case 77: break;
           case 28:
-            { return new Symbol(ParserSym.R_VAR, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_VAR, yycolumn, yyline, yytext());
             }
           // fall through
           case 78: break;
           case 29:
-            { return new Symbol(ParserSym.R_EJEX,yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_EJEX,yycolumn, yyline, yytext());
             }
           // fall through
           case 79: break;
           case 30:
-            { return new Symbol(ParserSym.R_EJEY,yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_EJEY,yycolumn, yyline, yytext());
             }
           // fall through
           case 80: break;
           case 31:
-            { return new Symbol(ParserSym.R_EXEC,yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_EXEC,yycolumn, yyline, yytext());
             }
           // fall through
           case 81: break;
           case 32:
-            { return new Symbol(ParserSym.R_MODA, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_MODA, yycolumn, yyline, yytext());
             }
           // fall through
           case 82: break;
           case 33:
-            { return new Symbol(ParserSym.R_LABEL,yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_LABEL,yycolumn, yyline, yytext());
             }
           // fall through
           case 83: break;
           case 34:
-            { return new Symbol(ParserSym.R_MEDIA, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_MEDIA, yycolumn, yyline, yytext());
             }
           // fall through
           case 84: break;
           case 35:
-            { return new Symbol(ParserSym.R_PRINT, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_PRINT, yycolumn, yyline, yytext());
             }
           // fall through
           case 85: break;
           case 36:
-            { return new Symbol(ParserSym.R_CHAR, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_CHAR, yycolumn, yyline, yytext());
             }
           // fall through
           case 86: break;
           case 37:
-            { return new Symbol(ParserSym.R_COLUMN,yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_COLUMN,yycolumn, yyline, yytext());
             }
           // fall through
           case 87: break;
           case 38:
-            { return new Symbol(ParserSym.R_DOUBLE, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_DOUBLE, yycolumn, yyline, yytext());
             }
           // fall through
           case 88: break;
           case 39:
-            { return new Symbol(ParserSym.R_TITULO,yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_TITULO,yycolumn, yyline, yytext());
             }
           // fall through
           case 89: break;
           case 40:
-            { return new Symbol(ParserSym.R_VALUES,yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_VALUES,yycolumn, yyline, yytext());
             }
           // fall through
           case 90: break;
           case 41:
-            { return new Symbol(ParserSym.R_CONSOLE, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_CONSOLE, yycolumn, yyline, yytext());
             }
           // fall through
           case 91: break;
           case 42:
-            { return new Symbol(ParserSym.R_MEDIANA, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_MEDIANA, yycolumn, yyline, yytext());
             }
           // fall through
           case 92: break;
           case 43:
-            { return new Symbol(ParserSym.R_PROGRAM, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_PROGRAM, yycolumn, yyline, yytext());
             }
           // fall through
           case 93: break;
           case 44:
-            { return new Symbol(ParserSym.R_TITULOX,yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_TITULOX,yycolumn, yyline, yytext());
             }
           // fall through
           case 94: break;
           case 45:
-            { return new Symbol(ParserSym.R_TITULOY,yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_TITULOY,yycolumn, yyline, yytext());
             }
           // fall through
           case 95: break;
           case 46:
-            { return new Symbol(ParserSym.R_BAR,yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_BAR,yycolumn, yyline, yytext());
             }
           // fall through
           case 96: break;
           case 47:
-            { return new Symbol(ParserSym.R_PIE,yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_PIE,yycolumn, yyline, yytext());
             }
           // fall through
           case 97: break;
           case 48:
-            { return new Symbol(ParserSym.R_VARIANZA, yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_VARIANZA, yycolumn, yyline, yytext());
             }
           // fall through
           case 98: break;
           case 49:
-            { return new Symbol(ParserSym.R_LINE,yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_LINE,yycolumn, yyline, yytext());
             }
           // fall through
           case 99: break;
           case 50:
-            { return new Symbol(ParserSym.R_HISTOGRAM,yycolumn, yyline, yytext());
+            { arreglos_publicos.contador = arreglos_publicos.contador + 1;
+                arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
+                return new Symbol(ParserSym.R_HISTOGRAM,yycolumn, yyline, yytext());
             }
           // fall through
           case 100: break;

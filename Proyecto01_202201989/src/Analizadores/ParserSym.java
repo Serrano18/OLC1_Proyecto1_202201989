@@ -8,56 +8,55 @@ package Analizadores;
 /** CUP generated class containing symbol constants. */
 public class ParserSym {
   /* terminals */
-  public static final int R_COLUMN = 36;
-  public static final int R_TITULO = 42;
+  public static final int R_COLUMN = 35;
+  public static final int R_TITULO = 41;
   public static final int DOSPUNTOS = 3;
   public static final int PUNTOSDOBLE = 5;
-  public static final int R_MUL = 22;
+  public static final int R_MUL = 21;
   public static final int PUNTOYCOMA = 2;
-  public static final int R_MEDIA = 25;
-  public static final int R_MOD = 24;
-  public static final int R_LABEL = 49;
-  public static final int CORCHETEC = 19;
-  public static final int R_VALUES = 48;
-  public static final int CORCHETEA = 18;
-  public static final int R_PRINT = 35;
-  public static final int R_EXEC = 47;
-  public static final int IGUAL = 33;
-  public static final int R_VARIANZA = 28;
-  public static final int R_CONSOLE = 34;
-  public static final int R_SUM = 20;
+  public static final int R_MEDIA = 24;
+  public static final int R_MOD = 23;
+  public static final int R_LABEL = 48;
+  public static final int CORCHETEC = 18;
+  public static final int R_VALUES = 47;
+  public static final int CORCHETEA = 17;
+  public static final int R_PRINT = 34;
+  public static final int R_EXEC = 46;
+  public static final int IGUAL = 32;
+  public static final int R_VARIANZA = 27;
+  public static final int R_CONSOLE = 33;
+  public static final int R_SUM = 19;
   public static final int R_END = 10;
-  public static final int R_ARR = 17;
+  public static final int R_ARR = 16;
   public static final int R_CHAR = 8;
   public static final int ID = 7;
-  public static final int R_HISTOGRAM = 41;
+  public static final int R_HISTOGRAM = 40;
   public static final int EOF = 0;
   public static final int DECIMAL = 13;
-  public static final int R_MAX = 29;
-  public static final int ASIGNACION2 = 37;
+  public static final int R_MAX = 28;
+  public static final int ASIGNACION2 = 36;
   public static final int R_VAR = 6;
   public static final int error = 1;
-  public static final int COMILLA = 14;
-  public static final int COMA = 15;
+  public static final int COMA = 14;
   public static final int CADENA = 12;
-  public static final int R_TITULOY = 46;
-  public static final int R_EJEY = 44;
-  public static final int R_TITULOX = 45;
-  public static final int R_EJEX = 43;
+  public static final int R_TITULOY = 45;
+  public static final int R_EJEY = 43;
+  public static final int R_TITULOX = 44;
+  public static final int R_EJEX = 42;
   public static final int ASIGNACION = 4;
-  public static final int R_RES = 21;
-  public static final int R_PIE = 40;
-  public static final int PARENTESIS_C = 32;
-  public static final int PARENTESIS_A = 31;
-  public static final int IDARR = 16;
-  public static final int R_BAR = 38;
+  public static final int R_RES = 20;
+  public static final int R_PIE = 39;
+  public static final int PARENTESIS_C = 31;
+  public static final int PARENTESIS_A = 30;
+  public static final int IDARR = 15;
+  public static final int R_BAR = 37;
   public static final int R_DOUBLE = 9;
-  public static final int R_MEDIANA = 26;
-  public static final int R_LINE = 39;
+  public static final int R_MEDIANA = 25;
+  public static final int R_LINE = 38;
   public static final int R_PROGRAM = 11;
-  public static final int R_MODA = 27;
-  public static final int R_DIV = 23;
-  public static final int R_MIN = 30;
+  public static final int R_MODA = 26;
+  public static final int R_DIV = 22;
+  public static final int R_MIN = 29;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -73,7 +72,6 @@ public class ParserSym {
   "R_PROGRAM",
   "CADENA",
   "DECIMAL",
-  "COMILLA",
   "COMA",
   "IDARR",
   "R_ARR",

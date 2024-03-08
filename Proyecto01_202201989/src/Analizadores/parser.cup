@@ -32,7 +32,7 @@ terminal R_VAR,ID, R_CHAR, R_DOUBLE,R_END;
 terminal R_PROGRAM;
 terminal CADENA;
 terminal DECIMAL;
-terminal COMILLA,COMA, IDARR, R_ARR,CORCHETEA,CORCHETEC;
+terminal COMA, IDARR, R_ARR,CORCHETEA,CORCHETEC;
 terminal R_SUM, R_RES, R_MUL,R_DIV, R_MOD;
 terminal R_MEDIA, R_MEDIANA, R_MODA,R_VARIANZA,R_MAX,R_MIN,PARENTESIS_A,PARENTESIS_C;
 terminal IGUAL,R_CONSOLE,R_PRINT;
@@ -47,7 +47,7 @@ nonterminal lista_instr;
 nonterminal expresion;
 nonterminal declaracion_variable;
 nonterminal tipo_datos;
-nonterminal variable, declaracion_arreglos,lista_expre,arreglo;
+nonterminal declaracion_arreglos,lista_expre,arreglo;
 nonterminal funciones,aritmetica,estadistica;
 nonterminal imprimir_expresiones;
 nonterminal imprimir_arreglos,expresion_arreglo;
@@ -72,6 +72,7 @@ instruccion ::= declaracion_variable
     |imprimir_expresiones
     |imprimir_arreglos
     |grafica
+    |error PUNTOYCOMA
 ;
 
 //declaraciones variables y arreglo

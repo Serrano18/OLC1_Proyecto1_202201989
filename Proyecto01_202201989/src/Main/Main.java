@@ -6,6 +6,7 @@ package Main;
 
 import java.io.StringReader;
 import java.util.HashMap;
+import clases.reportes;
 
 public class Main {
 
@@ -86,6 +87,7 @@ public class Main {
                          """;
 
         analizar(entrada);
+        reportes.generarReporteTokens();
     }
 
     public static void analizadores(String ruta, String jflexFile, String cupFile) {

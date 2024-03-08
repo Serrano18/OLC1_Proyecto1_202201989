@@ -67,7 +67,7 @@ COMENTARIOM = {MENOR}{EXCLAMACION}~{EXCLAMACION}{MAYOR}
     ","     {return new Symbol(ParserSym.COMA, yycolumn, yyline, yytext());}
     "="     {return new Symbol(ParserSym.IGUAL, yycolumn, yyline, yytext());}
     "->"    {return new Symbol(ParserSym.ASIGNACION2, yycolumn, yyline, yytext());}
-
+//Palabras reservadas
     "end"       {return new Symbol(ParserSym.R_END, yycolumn, yyline, yytext());}
     "program"   {return new Symbol(ParserSym.R_PROGRAM, yycolumn, yyline, yytext());}
     
@@ -108,7 +108,7 @@ COMENTARIOM = {MENOR}{EXCLAMACION}~{EXCLAMACION}{MAYOR}
     "label"     {return new Symbol(ParserSym.R_LABEL,yycolumn, yyline, yytext());}
 
 
-
+//expresiones regulares
 
 
     {ID}          { return new Symbol(ParserSym.ID, yycolumn, yyline, yytext()); }

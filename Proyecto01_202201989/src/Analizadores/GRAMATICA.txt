@@ -24,7 +24,7 @@ comienza en inicio
 <declaracion_variable> ::= VAR ":" <tipo_datos> "::"  ID "<-"  <expresion>  END ";"
 <declaracion_arreglos> ::=  ARR ":" <tipo_datos> "::" IDARR "<-" <arreglo>  END ";"    
 <arreglo> ::= "[" <lista_expre> "]"   |   IDARR
-<lis  ta_expre> ::= <lista_expre> "," <expresion> |   <expresion>
+<lista_expre> ::= <lista_expre> "," <expresion> |   <expresion>
 <funciones> ::= <aritmetica> "(" <expresion> "," <expresion> ")"  | <estadistica> "(" <arreglo> ")"
 <aritmetica> ::=  SUM |  RES |  DIV |  MUL |  MOD
 <estadistica> ::=  MEDIA |  MEDIANA |  VARIANZA |  MAX |  MODA |  MIN
@@ -32,7 +32,7 @@ comienza en inicio
 <expresion> ::= <funciones> | CADENA | DECIMAL | ID
 <expresion_arreglo> ::= CADENA | ID
 <imprimir_ expresiones> ::=  CONSOLE "::"  PRINT "=" <lista_expre>  END ";"
-<imprimir_arreglos> ::=  CONSOLE "::"  COLUMN "=" <expresion_arreglo> "->" <arreglo>  END ";"
+<imprimi arreglos> ::=  CONSOLE "::"  COLUMN "=" <expresion_arreglo> "->" <arreglo>  END ";"
 <grafica>::= <tipo_grafica> "(" <parametros_grafica> ")"  END ";"
 <parametros_grafica> ::= <lista_sentencia>  EXEC <tipo_grafica>  END ";"
 <lista_sentencia> ::= <lista_sentencia> <sentencia> | <sentencia>

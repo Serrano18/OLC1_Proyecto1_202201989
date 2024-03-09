@@ -8,14 +8,14 @@ package clases;
  *
  * @author evams
  */
-public class Error {
+public class Error_ {
     private int id;
     private int fila;
     private int columna;
     private String Descripcion;
     private String Tipo;
 
-    public Error(int id, int fila, int columna, String Descripcion, String Tipo) {
+    public Error_(int id, int fila, int columna, String Descripcion, String Tipo) {
         this.id = id;
         this.fila = fila;
         this.columna = columna;

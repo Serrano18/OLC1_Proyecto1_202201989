@@ -7,7 +7,7 @@ package Analizadores;
 //aqui va los tokens y la lista de errore
 import java_cup.runtime.*;
 import java.util.ArrayList;
-import clases.*
+import clases.*;
 //-------> Directivas (No tocar)
 
 @SuppressWarnings("fallthrough")
@@ -909,10 +909,10 @@ public class analizadorLexico implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { arreglos_publicos.contadorE= arreglos_publicos.contadorE+1;
+            { arreglos_publicos.contadorE = arreglos_publicos.contadorE + 1;
         String descrip = "El caracter " + yytext() + "no pertenece al lenguaje";
-         arreglos_publicos.contadorE.errores.add(new Error( arreglos_publicos.contadorE,yyline,yycolumn,descrip,"Lexico"));
- System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn);
+        arreglos_publicos.errores.add(new  Error_(arreglos_publicos.contadorE, yyline,yycolumn,descrip,"Lexico"));
+        System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn);
             }
           // fall through
           case 51: break;

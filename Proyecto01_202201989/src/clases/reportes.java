@@ -50,4 +50,43 @@ public class reportes {
             e.printStackTrace();
         }
     }
+   
+   
+   public static void generarReporteErrores() {
+        try (FileWriter fw = new FileWriter("REPORTE_ERRORES.html")) {
+            fw.write("<html><head><title>Reporte de Errores</title>");
+            fw.write("<style>");
+            fw.write("table {");
+            fw.write("    width: 50%;"); // Centrar la tabla
+            fw.write("    margin: 0 auto;"); // Centrar la tabla
+            fw.write("    border-collapse: collapse;");
+            fw.write("}");
+            fw.write("th, td {");
+            fw.write("    border: 1px solid black;");
+            fw.write("    padding: 8px;");
+            fw.write("    text-align: left;");
+            fw.write("}");
+            fw.write("th {");
+            fw.write("    background-color: #f2f2f2;"); // Color de fondo para las celdas de encabezado
+            fw.write("}");
+            fw.write("</style>");
+            fw.write("</head><body>");
+            fw.write("<h1 style=\"text-align:center;\">Tabla de Errores</h1>");
+            fw.write("<table>");
+            fw.write("<tr><th>ID</th><th>Tipo</th><th>Descripcion</th><th>Línea</th><th>Columna</th></tr>");
+            for (Error_ er : arreglos_publicos.errores) {
+             fw.write("<tr>");
+                fw.write("<td>" + er.getId() + "</td>");
+                fw.write("<td>" + er.getTipo()+ "</td>");
+                fw.write("<td>" + er.getDescripcion() + "</td>");
+                fw.write("<td>" + er.getFila() + "</td>");
+                fw.write("<td>" + er.getColumna() + "</td>");
+                fw.write("</tr>");
+            }
+            fw.write("</table>");
+            fw.write("</body></html>");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

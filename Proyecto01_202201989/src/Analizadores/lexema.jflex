@@ -3,7 +3,7 @@ package Analizadores;
 //aqui va los tokens y la lista de errore
 import java_cup.runtime.*;
 import java.util.ArrayList;
-import clases.*
+import clases.*;
 //-------> Directivas (No tocar)
 %%	
 %public 
@@ -41,7 +41,7 @@ MAYOR=">"
 CADENA=(\"|"“")[^\"\n]*(\"|"”")
 DECIMAL = [0-9]+(\.[0-9]+)?
 ID = {Letra}({Letra}|{NUMERO}|"_"|"-")*
-//COMILLA = "\"" 
+//COMILLA = "\""  
 IDARR = {ARROBA}{ID}
 COMENTARIO = {EXCLAMACION}~\n
 COMENTARIOM = {MENOR}{EXCLAMACION}~{EXCLAMACION}{MAYOR}
@@ -256,8 +256,7 @@ COMENTARIOM = {MENOR}{EXCLAMACION}~{EXCLAMACION}{MAYOR}
 <YYINITIAL> [ \t\r\n\f]     {/* Espacios en blanco se ignoran */}
 
 //------> Errores Léxicos 
-[^] { arreglos_publicos.contadorE= arreglos_publicos.contadorE+1;
+[^] { arreglos_publicos.contadorE = arreglos_publicos.contadorE + 1;
         String descrip = "El caracter " + yytext() + "no pertenece al lenguaje";
-         arreglos_publicos.contadorE.errores.add(new Error( arreglos_publicos.contadorE,yyline,yycolumn,descrip,"Lexico"));
- System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn);
- }
+        arreglos_publicos.errores.add(new  Error_(arreglos_publicos.contadorE, yyline,yycolumn,descrip,"Lexico"));
+        System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn); }

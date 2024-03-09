@@ -4,6 +4,7 @@
  */
 package Main;
 
+import Analizadores.Arbol;
 import java.io.StringReader;
 import java.util.HashMap;
 import clases.reportes;
@@ -25,13 +26,13 @@ public class Main {
                          SGKS}
                          !>
                          var : double :: valio5 <- 30 end ;
-                         var : char[] :: nombre <- "Maria" end ;
+                         + var : char[] :: nombre <- "Maria" end ;
                          arr:double :: @nfk<- [1,2,3,4] end;
                          arr:double::@darray<-@numero end;
-                         arr:char[]:: @jfk <- ["mando","mio"] end;
+                         arr:char[]:: @jfk <- ["mando","mio"] end;*
                          arr:double::@darray <- [1, 2, 3, 4, 5] end; ! Arreglo de tipo double
                           arr:char[]::@carray <- ["12", "2", "3"] end; ! Arreglo de tipo string
-                          arr:double::@carray <- [numero, copia, 7] end; ! Puede usar variables
+                          arr:double::@carray <- / [numero, copia, 7] end; ! Puede usar variables
                           ! Operaciones
                           var:double:: suma <- SUM(5, 2) end;
                           var:double:: resta <- RES(3, 2) end;
@@ -64,7 +65,7 @@ public class Main {
                                 EXEC graphBar end;
                             ) end;
                             ! Ejemplo
-                            graphPie(
+                            graphPie( 
                                 label::char[] = [“Uno”, “Dos”, “Tres”] end;
                                 values::double = [50, 30, 20] end;
                                 titulo::char[] = “Ejemplo Gráfica de Pie” end;
@@ -88,6 +89,7 @@ public class Main {
 
         analizar(entrada);
         reportes.generarReporteTokens();
+        reportes.generarReporteErrores();
     }
 
     public static void analizadores(String ruta, String jflexFile, String cupFile) {
@@ -109,7 +111,8 @@ public class Main {
         try {
             Analizadores.analizadorLexico lexer = new Analizadores.analizadorLexico(new StringReader(entrada)); //para llamar impoprt o llamamo asi
             Analizadores.Parser parser = new Analizadores.Parser(lexer);
-            parser.parse();
+            Arbol arbol_sintactico = (Arbol)parser.parse().value; //Parseo el .value me devuelve el analizador sintactico
+            arbol_sintactico.printArbol(arbol_sintactico);
         } catch (Exception e) {
             System.out.println("Error fatal en compilación de entrada.");
             System.out.println(e);

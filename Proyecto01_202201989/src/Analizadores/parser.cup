@@ -41,78 +41,296 @@ terminal R_BAR,R_LINE,R_PIE,R_HISTOGRAM;
 terminal R_TITULO, R_EJEX,R_EJEY,R_TITULOX,R_TITULOY,R_EXEC,R_VALUES,R_LABEL;
 
 //------> Declaracion de no terminales
-nonterminal inicio;
-nonterminal instruccion;
-nonterminal lista_instr;
-nonterminal expresion;
-nonterminal declaracion_variable;
-nonterminal tipo_datos;
-nonterminal declaracion_arreglos,lista_expre,arreglo;
-nonterminal funciones,aritmetica,estadistica;
-nonterminal imprimir_expresiones;
-nonterminal imprimir_arreglos,expresion_arreglo;
-nonterminal tipo_grafica,sentencia,lista_sentencia,grafica;
-nonterminal parametro_arreglo_double,parametro_arreglo_char,parametrocadena,parametros_grafica;
+nonterminal Arbol inicio, instruccion, lista_instr, expresion, declaracion_variable, tipo_datos, declaracion_arreglos,lista_expre,arreglo, 
+funciones,aritmetica,estadistica, imprimir_expresiones,imprimir_arreglos,expresion_arreglo, tipo_grafica,sentencia,lista_sentencia,grafica, 
+parametro_arreglo_double,parametro_arreglo_char,parametrocadena,parametros_grafica;
 //------> PRECEDENCIA
 
 //------> Definir Simbolo Inicial
-start with inicio; 
+start with inicio;  
 
 // ------------>  Producciones  <------------
-
-inicio ::= R_PROGRAM lista_instr R_END R_PROGRAM
+ 
+inicio ::= R_PROGRAM lista_instr:p1 R_END R_PROGRAM
+        {:
+            Arbol ini = new Arbol("ini",-1,-1);
+            ini.addHijo(new Arbol("PROGRAM",-1,-1));
+            ini.addHijo(p1);
+            ini.addHijo(new Arbol("END",-1,-1));
+            ini.addHijo(new Arbol("PROGRAM",-1,-1));
+            RESULT = ini;
+        :}
 ;
 
-lista_instr ::= lista_instr instruccion
-    | instruccion
+lista_instr ::= lista_instr:p1 instruccion:p2
+    {:
+        Arbol P1 = new Arbol("List Instruction",-1,-1);
+        P1.addHijo(p1);
+        P1.addHijo(p2);
+        RESULT = P1;
+    :}
+    | instruccion:p2
+    {:
+        Arbol P1 = new Arbol("Instruccion",-1,-1);
+        P1.addHijo(p2);
+        RESULT = P1;
+    :}
 ;
 
-instruccion ::= declaracion_variable 
-    |declaracion_arreglos
-    |imprimir_expresiones
-    |imprimir_arreglos
-    |grafica
+instruccion ::= declaracion_variable:p3
+    {:
+        Arbol P2 = new Arbol("IntruccionDV",-1,-1);
+        P2.addHijo(p3);
+        RESULT = P2;
+    :}
+    |declaracion_arreglos:p4
+    {:
+        Arbol P2 = new Arbol("IntruccionDA",-1,-1);
+        P2.addHijo(p4);
+        RESULT = P2;
+    :}
+
+    |imprimir_expresiones:p5
+     {:
+        Arbol P2 = new Arbol("IntruccionIE",-1,-1);
+        P2.addHijo(p5);
+        RESULT = P2;
+    :}
+    |imprimir_arreglos:p6
+    {:
+        Arbol P2 = new Arbol("IntruccionIA",-1,-1);
+        P2.addHijo(p6);
+        RESULT = P2;
+    :}
+    |grafica:p7
+    {:
+        Arbol P2 = new Arbol("IntruccionG",-1,-1);
+        P2.addHijo(p7);
+        RESULT = P2;
+    :}
     |error PUNTOYCOMA
 ;
 
-//declaraciones variables y arreglo
-declaracion_variable ::= R_VAR DOSPUNTOS tipo_datos PUNTOSDOBLE  ID ASIGNACION  expresion:e R_END PUNTOYCOMA {: System.out.println(e); :}
+ //declaraciones variables y arreglo
+declaracion_variable ::= R_VAR DOSPUNTOS tipo_datos:p8 PUNTOSDOBLE  ID:i ASIGNACION  expresion:p9 R_END PUNTOYCOMA
+    {:
+        Arbol P3 = new Arbol("IntruccionDV",-1,-1);
+        P3.addHijo(new Arbol("var",-1,-1));
+        P3.addHijo(new Arbol(":",-1,-1));
+        P3.addHijo(p8);
+        P3.addHijo(new Arbol("::",-1,-1));
+        P3.addHijo(new Arbol(i.toString(),ileft,iright));
+        P3.addHijo(new Arbol ("<-",-1,-1));
+        P3.addHijo(p9);
+        P3.addHijo(new Arbol("END",-1,-1));
+        P3.addHijo(new Arbol(";",-1,-1));
+        RESULT = P3;
+    :}
+    ;
+
+declaracion_arreglos ::= R_ARR DOSPUNTOS tipo_datos:p8 PUNTOSDOBLE IDARR:ia ASIGNACION arreglo:p10 R_END PUNTOYCOMA
+{:
+        Arbol P4 = new Arbol("IntruccionDA",-1,-1);
+        P4.addHijo(new Arbol("arr",-1,-1));
+        P4.addHijo(new Arbol(":",-1,-1));
+        P4.addHijo(p8);
+        P4.addHijo(new Arbol("::",-1,-1));
+        P4.addHijo(new Arbol(ia.toString(),ialeft,iaright));
+        P4.addHijo(new Arbol ("<-",-1,-1));
+        P4.addHijo(p10);
+        P4.addHijo(new Arbol("END",-1,-1));
+        P4.addHijo(new Arbol(";",-1,-1));
+        RESULT=P4;
+
+:}
 ;
 
-declaracion_arreglos ::= R_ARR DOSPUNTOS tipo_datos PUNTOSDOBLE IDARR ASIGNACION arreglo:a R_END PUNTOYCOMA {:System.out.println("Funciona" + a);:}
-    
-;
-arreglo ::= CORCHETEA lista_expre:l CORCHETEC  {:RESULT="lista";:}
-    |   IDARR:a {:RESULT=a.toString();:}
-;
-lista_expre ::= lista_expre:l COMA expresion:e {:System.out.println(","+ e);:}
-    |   expresion:e2{: System.out.println(e2);:}
+arreglo ::= CORCHETEA lista_expre:p11 CORCHETEC  
+    {:
+        Arbol P10 = new Arbol("arreglo",-1,-1);
+         P10.addHijo(new Arbol("[",-1,-1));
+         P10.addHijo(p11);
+         P10.addHijo(new Arbol("]",-1,-1));
+         RESULT = P10;
+    :}
+
+    |   IDARR:ida
+    {:
+         Arbol P10 = new Arbol("Idarreglo",-1,-1);
+         P10.addHijo(new Arbol(ida.toString(),idaleft,idaright));
+         RESULT=P10;
+    :}
 ;
 
-funciones ::= aritmetica PARENTESIS_A expresion COMA expresion PARENTESIS_C 
-        |estadistica PARENTESIS_A arreglo PARENTESIS_C
+lista_expre ::= lista_expre:p11 COMA expresion:p9
+        {:
+            Arbol P11 = new Arbol("Lista-expre",-1,-1);
+            P11.addHijo(p11);
+            P11.addHijo(new Arbol(",",-1,-1));
+            P11.addHijo(p9);
+            RESULT=P11;
+        :}
+    |   expresion:p9
+        {:
+            Arbol P9 = new Arbol("Lista-expre",-1,-1);
+            P9.addHijo(p9);
+            RESULT = P9;
+        :}
 ;
 
-aritmetica ::= R_SUM | R_RES | R_DIV | R_MUL | R_MOD
+funciones ::= aritmetica:p12 PARENTESIS_A expresion:p9 COMA expresion:p14 PARENTESIS_C 
+        {:
+            Arbol FC = new Arbol("FARITMETICA",-1,-1);
+            FC.addHijo(p12);
+            FC.addHijo(new Arbol("(",-1,-1));
+            FC.addHijo(p9);
+            FC.addHijo(new Arbol(",",-1,-1));
+            FC.addHijo(p14);
+            FC.addHijo(new Arbol(")",-1,-1));
+            RESULT = FC;
+        
+        :}
+        |estadistica:p13 PARENTESIS_A arreglo:p10 PARENTESIS_C
+        {:
+                Arbol FC = new Arbol("FESTADISTICA",-1,-1);
+                FC.addHijo(p13);
+                FC.addHijo(new Arbol("(",-1,-1));
+                FC.addHijo(p10);
+                FC.addHijo(new Arbol(")",-1,-1));
+                RESULT = FC;
+        :}
 ;
 
-estadistica ::= R_MEDIA | R_MEDIANA | R_VARIANZA | R_MAX | R_MODA | R_MIN
+aritmetica ::= R_SUM 
+                {:
+                    Arbol P12 = new Arbol("ARITMETICAS",-1,-1);
+                    P12.addHijo(new Arbol("SUM",-1,-1));
+                    RESULT = P12;
+                :}
+            | R_RES 
+                {:
+                    Arbol P12 = new Arbol("ARITMETICAR",-1,-1);
+                    P12.addHijo(new Arbol("RES",-1,-1));
+                    RESULT = P12;
+                
+                :}
+            | R_DIV
+                {:
+                    Arbol P12 = new Arbol("ARITMETICAD",-1,-1);
+                    P12.addHijo(new Arbol("DIV",-1,-1));
+                    RESULT = P12;
+                
+                :}
+            | R_MUL
+                {:
+                    Arbol P12 = new Arbol("ARITMETICAM",-1,-1);
+                    P12.addHijo(new Arbol("MUL",-1,-1));
+                    RESULT = P12;
+                
+                :}
+            | R_MOD
+                {:
+                    Arbol P12 = new Arbol("ARITMETICAMO",-1,-1);
+                    P12.addHijo(new Arbol("MOD",-1,-1));
+                    RESULT = P12;
+                
+                :}
+;
+
+estadistica ::= R_MEDIA
+            {:
+                Arbol P13 = new Arbol("EstadisticaME",-1,-1);
+                P13.addHijo(new Arbol("MEDIA",-1,-1));
+                RESULT = P13;
+            :}
+             | R_MEDIANA 
+             {:
+                Arbol P13 = new Arbol("EstadisticaMED",-1,-1);
+                P13.addHijo(new Arbol("MEDIANA",-1,-1));
+                RESULT = P13;
+             :}
+             | R_VARIANZA 
+             {:
+                Arbol P13 = new Arbol("EstadisticaV",-1,-1);
+                P13.addHijo(new Arbol("VARIANZA",-1,-1));
+                RESULT = P13;
+             :}
+             | R_MAX 
+             {:
+                Arbol P13 = new Arbol("EstadisticaMA",-1,-1);
+                P13.addHijo(new Arbol("MAX",-1,-1));
+                RESULT = P13;
+             :}
+             | R_MODA 
+             {:
+                Arbol P13 = new Arbol("EstadisticaMO",-1,-1);
+                P13.addHijo(new Arbol("MODA",-1,-1));
+                RESULT = P13;
+             :}
+             | R_MIN
+             {:
+                Arbol P13 = new Arbol("EstadisticaMI",-1,-1);
+                P13.addHijo(new Arbol("MIN",-1,-1));
+                RESULT = P13;
+             :}
 ;
 
 tipo_datos ::= R_CHAR
-    | R_DOUBLE                          
+        {:
+            Arbol P8 = new Arbol("tipoDato",-1,-1);
+            P8.addHijo(new Arbol("char[]",-2,-2));
+            RESULT = P8;
+        :}
+    | R_DOUBLE      
+        {:
+            Arbol P8 = new Arbol("tipoDato",-1,-1);
+            P8.addHijo(new Arbol("double",-3,-3));
+            RESULT = P8;
+        :}                    
 ;
+expresion ::= funciones:fc 
+            {:
+                Arbol P9 = new Arbol("exp",-1,-1);
+                P9.addHijo(fc);
+                RESULT = P9;
+            
+            :}
+     |CADENA:c 
+            {: 
+                Arbol P9 = new Arbol("exp",-1,-1);
+                P9.addHijo(new Arbol(c.toString(),cleft,cright));
+                RESULT = P9;
 
-expresion ::= funciones
-            |CADENA:c {: RESULT=c.toString(); :}
-            | DECIMAL:c {: RESULT=c.toString(); :}
-            | ID:c {: RESULT=c.toString(); :}
+             :}
+  | DECIMAL:num
+             {: 
+               Arbol P9 = new Arbol("exp",-1,-1);
+                P9.addHijo(new Arbol(num.toString(),numleft,numright));
+                RESULT = P9;
+             :}
+
+     | ID:ide 
+            {: 
+                Arbol P9 = new Arbol("exp",-1,-1);
+                P9.addHijo(new Arbol(ide.toString(),ideleft,ideright));
+                RESULT = P9;
+            
+            :}
             
 ;
-expresion_arreglo ::= CADENA
-        |ID
-    ;
-    
+expresion_arreglo ::= CADENA:cad
+        {:
+            Arbol expre = new Arbol("expre",-1,-1);
+            expre.addHijo(new Arbol(cad.toString(),cadleft,cadright));
+            RESULT = expre;
+        :}
+    |ID:id
+        {:
+            Arbol expre = new Arbol("expre",-1,-1);
+            expre.addHijo(new Arbol(id.toString(),idleft,idright));
+            RESULT = expre;
+        :}
+    ;   
 //impresiones
 imprimir_expresiones ::= R_CONSOLE PUNTOSDOBLE R_PRINT IGUAL lista_expre R_END PUNTOYCOMA
 ;

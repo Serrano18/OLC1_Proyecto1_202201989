@@ -332,33 +332,181 @@ expresion_arreglo ::= CADENA:cad
         :}
     ;   
 //impresiones
-imprimir_expresiones ::= R_CONSOLE PUNTOSDOBLE R_PRINT IGUAL lista_expre R_END PUNTOYCOMA
+imprimir_expresiones ::= R_CONSOLE PUNTOSDOBLE R_PRINT IGUAL lista_expre:p11 R_END PUNTOYCOMA
+    {:
+       Arbol P5 = new Arbol("ImprimirE",-1,-1);
+       P5.addHijo(new Arbol("CONSOLE",-1,-1));
+       P5.addHijo(new Arbol("::",-1,-1));
+       P5.addHijo(new Arbol("PRINT",-1,-1));
+       P5.addHijo(new Arbol("=",-1,-1));
+       P5.addHijo(p11);
+       P5.addHijo(new Arbol("END",-1,-1));
+       P5.addHijo(new Arbol(";",-1,-1));
+       RESULT = P5;
+    
+    :}
+
 ;
-imprimir_arreglos ::= R_CONSOLE PUNTOSDOBLE R_COLUMN IGUAL expresion_arreglo ASIGNACION2 arreglo R_END PUNTOYCOMA
+imprimir_arreglos ::= R_CONSOLE PUNTOSDOBLE R_COLUMN IGUAL expresion_arreglo:p11 ASIGNACION2 arreglo:p12 R_END PUNTOYCOMA
+     {:
+        Arbol P6 = new Arbol("ImprimirA",-1,-1);
+        P6.addHijo(new Arbol("CONSOLE",-1,-1));
+        P6.addHijo(new Arbol("::",-1,-1));
+        P6.addHijo(new Arbol("COLUMN",-1,-1));
+        P6.addHijo(new Arbol("=",-1,-1));
+        P6.addHijo(p11);
+        P6.addHijo(new Arbol("->",-1,-1));
+        P6.addHijo(p12);
+        P6.addHijo(new Arbol("END",-1,-1));
+        P6.addHijo(new Arbol(";",-1,-1));
+        RESULT = P6;
+     :}
 ;
 
 //graficas
-grafica::= tipo_grafica PARENTESIS_A parametros_grafica PARENTESIS_C R_END PUNTOYCOMA
+grafica::= tipo_grafica:tg PARENTESIS_A parametros_grafica:pg PARENTESIS_C R_END PUNTOYCOMA
+{:
+    Arbol P7 =new Arbol("Graficar",-1,-1);
+    P7.addHijo(tg);
+    P7.addHijo(new Arbol ("(",-1,-1 ));
+    P7.addHijo(pg);
+    P7.addHijo(new Arbol (")",-1,-1 ));
+    P7.addHijo(new Arbol("END",-1,-1));
+    P7.addHijo(new Arbol(";",-1,-1));
+
+:}
 ;
-parametros_grafica ::= lista_sentencia R_EXEC tipo_grafica R_END PUNTOYCOMA
+parametros_grafica ::= lista_sentencia:ls R_EXEC:exec tipo_grafica:tg R_END PUNTOYCOMA
+{:
+    Arbol P8 = new Arbol("ParametrosG",-1,-1);
+    P8.addHijo(ls);
+    P8.addHijo(new Arbol(exec.toString(),execleft,execright));
+    P8.addHijo(tg);
+    P8.addHijo(new Arbol("END",-1,-1));
+    P8.addHijo(new Arbol(";",-1,-1));
+:}
 ;
-lista_sentencia ::= lista_sentencia sentencia
-    |sentencia
+lista_sentencia ::= lista_sentencia:p1 sentencia:p2
+    {:
+        Arbol P1 = new Arbol("List Instruction",-1,-1);
+        P1.addHijo(p1);
+        P1.addHijo(p2);
+        RESULT = P1;
+    :}
+    |sentencia:p2
+        {:
+        Arbol P1 = new Arbol("Instruccion",-1,-1);
+        P1.addHijo(p2);
+        RESULT = P1;
+    :}
 ;
-sentencia ::= R_TITULO parametrocadena
-    |R_VALUES parametro_arreglo_double
-    |R_LABEL parametro_arreglo_char
-    |R_EJEX parametro_arreglo_char
-    |R_EJEY parametro_arreglo_double
-    |R_TITULOX parametrocadena
-    |R_TITULOY parametrocadena
+sentencia ::= R_TITULO parametrocadena:pc 
+        {:
+        Arbol P1 = new Arbol("PTITULO",-1,-1);
+        P1.addHijo(new Arbol("TITULO",-1,-1));
+        P1.addHijo(pc);
+        RESULT = P1; 
+      :}
+    |R_VALUES parametro_arreglo_double:pd
+    {: 
+        Arbol P1 = new Arbol("PVALUES",-1,-1);
+        P1.addHijo(new Arbol("VALUES",-1,-1));
+        P1.addHijo(pd);
+        RESULT = P1; 
+    :}
+    |R_LABEL parametro_arreglo_char:pac
+    {: 
+        Arbol P1 = new Arbol("PLABEL",-1,-1);
+        P1.addHijo(new Arbol("LABEL",-1,-1));
+        P1.addHijo(pac);
+        RESULT = P1; 
+    :}
+    |R_EJEX parametro_arreglo_char:pac
+    {: 
+     Arbol P1 = new Arbol("PEJEX",-1,-1);
+        P1.addHijo(new Arbol("EJEX",-1,-1));
+        P1.addHijo(pac);
+        RESULT = P1; 
+    
+     :}
+    |R_EJEY parametro_arreglo_double:pd
+    {: 
+     Arbol P1 = new Arbol("PEJEY",-1,-1);
+        P1.addHijo(new Arbol("EJEY",-1,-1));
+        P1.addHijo(pd);
+        RESULT = P1; 
+    :}
+    |R_TITULOX parametrocadena:pc
+    {:  
+     Arbol P1 = new Arbol("PTILULOX",-1,-1);
+        P1.addHijo(new Arbol("TITULOX",-1,-1));
+        P1.addHijo(pc);
+        RESULT = P1; 
+    :}
+    |R_TITULOY parametrocadena:pc
+    {: 
+     Arbol P1 = new Arbol("PTITULOY",-1,-1);
+        P1.addHijo(new Arbol("TITULOY",-1,-1));
+        P1.addHijo(pc);
+        RESULT = P1; 
+    :}
 ;
-tipo_grafica ::= R_BAR | R_LINE | R_PIE |R_HISTOGRAM
+tipo_grafica ::= R_BAR 
+{:                Arbol P13 = new Arbol("gbar",-1,-1);
+                P13.addHijo(new Arbol("BAR",-1,-1));
+                RESULT = P13;
+                :}
+| R_LINE 
+{:                Arbol P13 = new Arbol("gline",-1,-1);
+                P13.addHijo(new Arbol("LINE",-1,-1));
+                RESULT = P13;
+                :}
+| R_PIE 
+{:                Arbol P13 = new Arbol("gpie",-1,-1);
+                P13.addHijo(new Arbol("PIE",-1,-1));
+                RESULT = P13;
+                :}
+|R_HISTOGRAM
+{:                Arbol P13 = new Arbol("ghisto",-1,-1);
+                P13.addHijo(new Arbol("HISTOGRAM",-1,-1));
+                RESULT = P13;
+                :}
 ;
-parametrocadena::= PUNTOSDOBLE R_CHAR IGUAL expresion_arreglo R_END PUNTOYCOMA
+parametrocadena::= PUNTOSDOBLE R_CHAR IGUAL expresion_arreglo:ea R_END PUNTOYCOMA
+     {:
+        Arbol P6 = new Arbol("ParametroC",-1,-1);
+        P6.addHijo(new Arbol("::",-1,-1));
+        P6.addHijo(new Arbol("char[]",-1,-1));
+        P6.addHijo(new Arbol("=",-1,-1));
+        P6.addHijo(ea);
+        P6.addHijo(new Arbol("END",-1,-1));
+        P6.addHijo(new Arbol(";",-1,-1));
+        RESULT = P6;
+     :}
+
 ;
-parametro_arreglo_char ::=  PUNTOSDOBLE R_CHAR IGUAL arreglo R_END PUNTOYCOMA
+parametro_arreglo_char ::=  PUNTOSDOBLE R_CHAR IGUAL arreglo:a R_END PUNTOYCOMA
+{:
+
+        Arbol P6 = new Arbol("ParametroAC",-1,-1);
+        P6.addHijo(new Arbol("::",-1,-1));
+        P6.addHijo(new Arbol("char[]",-1,-1));
+        P6.addHijo(new Arbol("=",-1,-1));
+        P6.addHijo(a);
+        P6.addHijo(new Arbol("END",-1,-1));
+        P6.addHijo(new Arbol(";",-1,-1));
+        RESULT = P6;
+:}
 ;
-parametro_arreglo_double ::= PUNTOSDOBLE R_DOUBLE IGUAL arreglo R_END PUNTOYCOMA
+parametro_arreglo_double ::= PUNTOSDOBLE R_DOUBLE IGUAL arreglo:a R_END PUNTOYCOMA
+{:
+        Arbol P6 = new Arbol("ParametroAD",-1,-1);
+        P6.addHijo(new Arbol("::",-1,-1));
+        P6.addHijo(new Arbol("DOUBLE",-1,-1));
+        P6.addHijo(new Arbol("=",-1,-1));
+        P6.addHijo(a);
+        P6.addHijo(new Arbol("END",-1,-1));
+        P6.addHijo(new Arbol(";",-1,-1));
+:}
 ;
  

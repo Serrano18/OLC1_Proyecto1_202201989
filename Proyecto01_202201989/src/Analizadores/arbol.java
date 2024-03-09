@@ -61,6 +61,9 @@ public class Arbol {
         }
         
 	public void printArbol(Arbol raiz) {
+            if(raiz == null){
+                return;
+            }
 		for(Arbol hijo : raiz.hijos) {
 			printArbol(hijo);
 		}

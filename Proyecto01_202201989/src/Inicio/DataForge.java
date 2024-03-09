@@ -3,11 +3,20 @@ package Inicio;
 
 
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import clases.reportes;
 
 
 /*
@@ -26,10 +35,6 @@ public class DataForge extends javax.swing.JFrame {
      */
     public DataForge() {
         initComponents();
-        jTabbedPane1.addTab("Nuevo Archivo", new JScrollPane(new JTextArea()));
-        
-        
-        
     }
 
     /**
@@ -55,11 +60,14 @@ public class DataForge extends javax.swing.JFrame {
         Archivo = new javax.swing.JMenu();
         New = new javax.swing.JMenuItem();
         Open = new javax.swing.JMenuItem();
-        Save = new javax.swing.JMenuItem();
+        Save1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jEliminar = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
+        Ejecutar = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
+        New1 = new javax.swing.JMenuItem();
+        New2 = new javax.swing.JMenuItem();
+        New3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -121,7 +129,7 @@ public class DataForge extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(527, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -136,7 +144,7 @@ public class DataForge extends javax.swing.JFrame {
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(433, 433, 433)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 52, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,10 +156,11 @@ public class DataForge extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(38, Short.MAX_VALUE))
@@ -191,18 +200,24 @@ public class DataForge extends javax.swing.JFrame {
                 OpenMouseClicked(evt);
             }
         });
-        Archivo.add(Open);
-
-        Save.setBackground(new java.awt.Color(255, 255, 255));
-        Save.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        Save.setForeground(new java.awt.Color(0, 0, 0));
-        Save.setText("Guardar");
-        Save.addActionListener(new java.awt.event.ActionListener() {
+        Open.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SaveActionPerformed(evt);
+                OpenActionPerformed(evt);
             }
         });
-        Archivo.add(Save);
+        Archivo.add(Open);
+
+        Save1.setBackground(new java.awt.Color(255, 255, 255));
+        Save1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        Save1.setForeground(new java.awt.Color(0, 0, 0));
+        Save1.setText("Guardar");
+        Save1.setActionCommand("Guardar ");
+        Save1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Save1ActionPerformed(evt);
+            }
+        });
+        Archivo.add(Save1);
 
         jMenuBar1.add(Archivo);
 
@@ -216,25 +231,64 @@ public class DataForge extends javax.swing.JFrame {
         jEliminar.setForeground(new java.awt.Color(0, 0, 0));
         jEliminar.setText("Eliminar");
         jEliminar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEliminarActionPerformed(evt);
+            }
+        });
         jMenu2.add(jEliminar);
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setBackground(new java.awt.Color(255, 255, 255));
-        jMenu3.setForeground(new java.awt.Color(0, 0, 0));
-        jMenu3.setText("Ejecutar");
-        jMenu3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+        Ejecutar.setBackground(new java.awt.Color(255, 255, 255));
+        Ejecutar.setForeground(new java.awt.Color(0, 0, 0));
+        Ejecutar.setText("Ejecutar");
+        Ejecutar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        Ejecutar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu3MouseClicked(evt);
+                EjecutarMouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(Ejecutar);
 
         jMenu4.setBackground(new java.awt.Color(255, 255, 255));
         jMenu4.setForeground(new java.awt.Color(0, 0, 0));
         jMenu4.setText("Reportes");
         jMenu4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+        New1.setBackground(new java.awt.Color(255, 255, 255));
+        New1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        New1.setForeground(new java.awt.Color(0, 0, 0));
+        New1.setText("Reporte Token");
+        New1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                New1ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(New1);
+
+        New2.setBackground(new java.awt.Color(255, 255, 255));
+        New2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        New2.setForeground(new java.awt.Color(0, 0, 0));
+        New2.setText("Reporte Errores");
+        New2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                New2ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(New2);
+
+        New3.setBackground(new java.awt.Color(255, 255, 255));
+        New3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        New3.setForeground(new java.awt.Color(0, 0, 0));
+        New3.setText("Reporte Tabla Simbolos");
+        New3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                New3ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(New3);
+
         jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
@@ -243,10 +297,7 @@ public class DataForge extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,14 +317,29 @@ public class DataForge extends javax.swing.JFrame {
 
     private void NewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewActionPerformed
         // TODO add your handling code here:
-        String nuevo = JOptionPane.showInputDialog("Ingrese el nombre del nuevo archivop");
+        String nuevo = JOptionPane.showInputDialog("Ingrese el nombre del nuevo archivo");
+        if (nuevo != null && !nuevo.trim().isEmpty()) {
+            //jTabbedPane1.addTab(nuevo, new JScrollPane(new JTextArea()));
+            //jEliminar.add(nuevo);
+             JMenuItem item = new JMenuItem(nuevo);
+            item.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (int i = jTabbedPane1.getTabCount() - 1; i >= 0; i--) {
+                    if (nuevo.equals(jTabbedPane1.getTitleAt(i))) {
+                        jTabbedPane1.removeTabAt(i);
+                        jEliminar.remove(item);
+                        JOptionPane.showMessageDialog(null, "Se cerró la pestaña: " + nuevo, "Pestaña Cerrada", JOptionPane.INFORMATION_MESSAGE);
+                        break;
+                    }
+                }
+            }
+        });
+        jEliminar.add(item);
         jTabbedPane1.addTab(nuevo, new JScrollPane(new JTextArea()));
-        jEliminar.add(nuevo);
+            
+        }
     }//GEN-LAST:event_NewActionPerformed
-
-    private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SaveActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -281,7 +347,7 @@ public class DataForge extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+    private void EjecutarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EjecutarMouseClicked
         // TODO add your handling code here:
         int indice = jTabbedPane1.getSelectedIndex();
         Component panelObtenido = jTabbedPane1.getComponentAt(indice);
@@ -292,7 +358,96 @@ public class DataForge extends javax.swing.JFrame {
         }
         
         System.out.println();
-    }//GEN-LAST:event_jMenu3MouseClicked
+    }//GEN-LAST:event_EjecutarMouseClicked
+
+    private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
+       
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos .df", "df"));
+        int seleccion = fileChooser.showOpenDialog(this);
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            File archivo = fileChooser.getSelectedFile();
+             try {
+            String nombreArchivo = archivo.getName();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(archivo), StandardCharsets.UTF_8));
+            StringBuilder contenido = new StringBuilder();
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                contenido.append(linea).append("\n");
+            }
+            JTextArea textArea = new JTextArea();
+            textArea.setText(contenido.toString());
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            jTabbedPane1.addTab(nombreArchivo, scrollPane);
+             JMenuItem item = new JMenuItem(nombreArchivo);
+            item.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    for (int i = jTabbedPane1.getTabCount() - 1; i >= 0; i--) {
+                        if (nombreArchivo.equals(jTabbedPane1.getTitleAt(i))) {
+                            jTabbedPane1.removeTabAt(i);
+                            jEliminar.remove(item);
+                            JOptionPane.showMessageDialog(null, "Se cerró la pestaña: " + nombreArchivo, "Pestaña Cerrada", JOptionPane.INFORMATION_MESSAGE);
+                            break;
+                        }
+                    }
+                }
+            });
+            jEliminar.add(item);
+            reader.close();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al abrir el archivo", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        }
+  
+    }//GEN-LAST:event_OpenActionPerformed
+
+    private void Save1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save1ActionPerformed
+         int indice = jTabbedPane1.getSelectedIndex();
+        Component panelObtenido = jTabbedPane1.getComponentAt(indice);
+
+        if (panelObtenido instanceof JScrollPane) {
+            JTextArea selectedTextArea = (JTextArea) ((JScrollPane) panelObtenido).getViewport().getView();
+            String contenido = selectedTextArea.getText();
+
+            String nombrePestana = jTabbedPane1.getTitleAt(indice);
+            if (!nombrePestana.endsWith(".df")) {
+                nombrePestana += ".df";
+            }
+
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos .df", "df"));
+            fileChooser.setSelectedFile(new File(nombrePestana));
+            int seleccion = fileChooser.showSaveDialog(this);
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                File archivo = fileChooser.getSelectedFile();
+
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivo))) {
+                    writer.write(contenido);
+                    JOptionPane.showMessageDialog(this, "Archivo guardado exitosamente", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(this, "Error al guardar el archivo", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }//GEN-LAST:event_Save1ActionPerformed
+
+    private void jEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEliminarActionPerformed
+
+    }//GEN-LAST:event_jEliminarActionPerformed
+
+    private void New1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_New1ActionPerformed
+        reportes.generarReporteTokens();
+       
+    }//GEN-LAST:event_New1ActionPerformed
+
+    private void New2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_New2ActionPerformed
+         reportes.generarReporteErrores();
+    }//GEN-LAST:event_New2ActionPerformed
+
+    private void New3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_New3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_New3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -331,9 +486,13 @@ public class DataForge extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Archivo;
+    private javax.swing.JMenu Ejecutar;
     private javax.swing.JMenuItem New;
+    private javax.swing.JMenuItem New1;
+    private javax.swing.JMenuItem New2;
+    private javax.swing.JMenuItem New3;
     private javax.swing.JMenuItem Open;
-    private javax.swing.JMenuItem Save;
+    private javax.swing.JMenuItem Save1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JMenu jEliminar;
@@ -342,7 +501,6 @@ public class DataForge extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;

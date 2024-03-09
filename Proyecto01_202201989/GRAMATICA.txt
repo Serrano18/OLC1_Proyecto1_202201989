@@ -1,0 +1,66 @@
+terminales
+
+";", ":", "<-", "::"  VAR,ID,  CHAR,  DOUBLE, END,  PROGRAM, CADENA, DECIMAL,
+COMILLA,",", IDARR,  ARR,"[","]",  SUM,  RES,  MUL, DIV,  MOD,  MEDIA,  MEDIANA, 
+ MODA, VARIANZA, MAX, MIN,"(",")", "=", CONSOLE, PRINT,  COLUMN, "->",
+ BAR, LINE, PIE, HISTOGRAM,  TITULO,  EJEX, EJEY, TITULOX, TITULOY, EXEC, VALUES, LABEL;
+
+non terminales
+
+inicio, instruccion, lista_instr, expresion, declaracion_variable, tipo_datos, variable, declaracion_arreglos,lista_expre,arreglo,
+funciones,aritmetica,estadistica, imprimi expresiones, imprimi arreglos,expresion_arreglo, tipo_grafica,sentencia,lista_sentencia,grafica;
+ <parametro_arreglo_double>,parametro_arreglo_char,parametrocadena,parametros_grafica;
+
+
+
+comienza en inicio
+
+
+// ------------>  Producciones  <------------
+
+<inicio> :: =  PROGRAM <lista_instr>  END  PROGRAM
+
+<lista_instr> ::= <lista_instr> <instruccion> | <instruccion>
+
+<instruccion> ::= <declaracion_variable> | <declaracion_arreglos> | <imprimir_expresiones> | <imprimi arreglos> | <grafica>
+
+<declaracion_variable> ::= VAR ":" <tipo_datos> "::"  ID "<-"  <expresion>  END ";"
+
+<declaracion_arreglos> ::=  ARR ":" <tipo_datos> "::" IDARR "<-" <arreglo>  END ";"    
+
+<arreglo> ::= "[" <lista_expre> "]"   |   IDARR
+
+<lis  ta_expre> ::= <lista_expre> "," <expresion> |   <expresion>
+
+<funciones> ::= <aritmetica> "(" <expresion> "," <expresion> ")"  | <estadistica> "(" <arreglo> ")"
+
+<aritmetica> ::=  SUM |  RES |  DIV |  MUL |  MOD
+
+<estadistica> ::=  MEDIA |  MEDIANA |  VARIANZA |  MAX |  MODA |  MIN
+
+<tipo_datos> ::=  CHAR   |  DOUBLE 
+
+<expresion> ::= <funciones> | CADENA | DECIMAL | ID
+
+<expresion_arreglo> ::= CADENA | ID
+
+<imprimir_ expresiones> ::=  CONSOLE "::"  PRINT "=" <lista_expre>  END ";"
+
+<imprimir_arreglos> ::=  CONSOLE "::"  COLUMN "=" <expresion_arreglo> "->" <arreglo>  END ";"
+
+<grafica>::= <tipo_grafica> "(" <parametros_grafica> ")"  END ";"
+
+<parametros_grafica> ::= <lista_sentencia>  EXEC <tipo_grafica>  END ";"
+
+<lista_sentencia> ::= <lista_sentencia> <sentencia> | <sentencia>
+
+<sentencia> ::=  TITULO <parametrocadena> | VALUES <parametro_arreglo_double> | LABEL <parametro_arreglo_char> | EJEX <parametro_arreglo_char> | EJEY <parametro_arreglo_double> | TITULOX <parametrocadena> | TITULOY <parametrocadena>
+
+<tipo_grafica> ::=  BAR |  LINE |  PIE | HISTOGRAM
+
+<parametrocadena>::= "::"  CHAR "=" <expresion_arreglo>  END ";"
+
+<parametro_arreglo_char>::=  "::"  CHAR "=" <arreglo>  END ";"
+
+<parametro_arreglo_double> ::= "::"  DOUBLE "=" <arreglo>  END ";"
+ 

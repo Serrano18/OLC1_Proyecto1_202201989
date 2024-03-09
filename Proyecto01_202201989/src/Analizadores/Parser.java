@@ -7,6 +7,7 @@ package Analizadores;
 
 import java_cup.runtime.*;
 import java.util.LinkedList;
+import clases.*;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -268,13 +269,19 @@ public class Parser extends java_cup.runtime.lr_parser {
 
 
     public static String resultado = ""; 
-    //public static LinkedList<TError> TablaEL = new LinkedList<TError>();
+    
     public void syntax_error(Symbol s)
     {
+            arreglos_publicos.contadorE = arreglos_publicos.contadorE + 1;
+        String descrip = "Se encontro " + s.value  + "se esperaba otra cosa";
+        arreglos_publicos.errores.add(new  Error_(arreglos_publicos.contadorE, s.right, s.left,descrip,"Sintactico"));
             System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado" );
     }
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
-    {
+    {       
+        arreglos_publicos.contadorE = arreglos_publicos.contadorE + 1;
+        String descrip = "Se encontro " + s.value  + "se esperaba otra cosa y no se pudo recuperar";
+        arreglos_publicos.errores.add(new  Error_(arreglos_publicos.contadorE, s.right, s.left,descrip,"Sintactico"));
             System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Sin recuperacion." );
     }
 

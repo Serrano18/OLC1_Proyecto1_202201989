@@ -4,6 +4,8 @@
  */
 package clases;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -46,6 +48,11 @@ public class reportes {
             }
             fw.write("</table>");
             fw.write("</body></html>");
+            
+            
+            // Abrir el archivo generado
+            File file = new File("REPORTE_TOKENS.html");
+            Desktop.getDesktop().open(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -85,6 +92,9 @@ public class reportes {
             }
             fw.write("</table>");
             fw.write("</body></html>");
+            
+            File file = new File("REPORTE_ERRORES.html");
+            Desktop.getDesktop().open(file);
         } catch (IOException e) {
             e.printStackTrace();
         }

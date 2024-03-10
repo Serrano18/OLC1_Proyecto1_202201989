@@ -182,7 +182,7 @@ COMENTARIOM = {MENOR}{EXCLAMACION}~{EXCLAMACION}{MAYOR}
                 arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
                 return new Symbol(ParserSym.R_PIE,yycolumn, yyline, yytext());}
 
-    "graphLine" {arreglos_publicos.contador = arreglos_publicos.contador + 1;
+    "graphline" {arreglos_publicos.contador = arreglos_publicos.contador + 1;
                 arreglos_publicos.tokens.add(new Token(arreglos_publicos.contador, yyline,yycolumn,yytext(),"RESERVADA"));
                 return new Symbol(ParserSym.R_LINE,yycolumn, yyline, yytext());}
 

@@ -379,6 +379,7 @@ grafica::= tipo_grafica:tg PARENTESIS_A parametros_grafica:pg PARENTESIS_C R_END
     P7.addHijo(new Arbol (")",-1,-1 ));
     P7.addHijo(new Arbol("END",-1,-1));
     P7.addHijo(new Arbol(";",-1,-1));
+    RESULT = P7;
 
 :}
 ;
@@ -389,6 +390,7 @@ parametros_grafica ::= lista_sentencia:ls tipo_grafica:tg R_END PUNTOYCOMA
     P8.addHijo(tg);
     P8.addHijo(new Arbol("END",-1,-1));
     P8.addHijo(new Arbol(";",-1,-1));
+    RESULT = P8;
 :}
 ;
 lista_sentencia ::= lista_sentencia:p1 sentencia:p2
@@ -516,6 +518,7 @@ parametro_arreglo_double ::= PUNTOSDOBLE R_DOUBLE IGUAL arreglo:a R_END PUNTOYCO
         P6.addHijo(a);
         P6.addHijo(new Arbol("END",-1,-1));
         P6.addHijo(new Arbol(";",-1,-1));
+        RESULT = P6;
 :}
 ;
  

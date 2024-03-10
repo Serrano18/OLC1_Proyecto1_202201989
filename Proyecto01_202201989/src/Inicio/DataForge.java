@@ -353,6 +353,7 @@ public class DataForge extends javax.swing.JFrame {
 
     private void EjecutarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EjecutarMouseClicked
         // TODO add your handling code here:
+        
         arreglos_publicos.tokens.clear();
         arreglos_publicos.errores.clear();
         arreglos_publicos.contador=0;
@@ -367,8 +368,9 @@ public class DataForge extends javax.swing.JFrame {
                 Analizadores.analizadorLexico lexer = new Analizadores.analizadorLexico(new StringReader(selectedTextArea.getText())); //para llamar impoprt o llamamo asi
                 Analizadores.Parser parser = new Analizadores.Parser(lexer);
                 Arbol arbol_sintactico = (Arbol)parser.parse().value; //Parseo el .value me devuelve el analizador sintactico
-                arbol_sintactico.printArbol(arbol_sintactico);
+                //arbol_sintactico.printArbol(arbol_sintactico);
                 arbol_sintactico.guardarArbol(arbol_sintactico);
+                arbol_sintactico.printArbol(arbol_sintactico);
                 Interprete interprete = new Interprete(arbol_sintactico);
                 interprete.run();
                 String respuesta = interprete.getConsola();

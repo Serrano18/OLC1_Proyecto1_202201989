@@ -1003,6 +1003,7 @@ class CUP$Parser$actions {
     P7.addHijo(new Arbol (")",-1,-1 ));
     P7.addHijo(new Arbol("END",-1,-1));
     P7.addHijo(new Arbol(";",-1,-1));
+    RESULT = P7;
 
 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("grafica",18, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -1025,6 +1026,7 @@ class CUP$Parser$actions {
     P8.addHijo(tg);
     P8.addHijo(new Arbol("END",-1,-1));
     P8.addHijo(new Arbol(";",-1,-1));
+    RESULT = P8;
 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("parametros_grafica",22, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1304,6 +1306,7 @@ class CUP$Parser$actions {
         P6.addHijo(a);
         P6.addHijo(new Arbol("END",-1,-1));
         P6.addHijo(new Arbol(";",-1,-1));
+        RESULT = P6;
 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("parametro_arreglo_double",19, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }

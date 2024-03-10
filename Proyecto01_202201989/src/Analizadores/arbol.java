@@ -18,10 +18,10 @@ public class Arbol {
         private int fila,columna;
     	public String lex;
 	public ArrayList<Arbol> hijos;
-        private List<String> Ignorados = Arrays.asList("ini","List Instruction","Instruccion","IntruccionDV","IntruccionDA","IntruccionIE",
-             "IntruccionIA","IntruccionG","IntruccionDV","IntruccionDA","arreglo","Idarreglo","Lista-expre","FARITMETICA","FESTADISTICA",
+    private List<String> Ignorados = Arrays.asList("ini","List Instruction","Instruccion","IntruccionDV","IntruccionDA","IntruccionIE",
+             "IntruccionIA","IntruccionG","arreglo","Idarreglo","Lista-expre","FARITMETICA","FESTADISTICA",
              "ARITMETICAS","ARITMETICAR","ARITMETICAD","ARITMETICAM","ARITMETICAMO","EstadisticaME","EstadisticaMED","EstadisticaV","EstadisticaMA",
-             "EstadisticaMO","EstadisticaMI","tipoDato","tipoDato","exp","expre","ImprimirE","ImprimirA","Graficar","ParametrosG","PTITULO",
+             "EstadisticaMO","EstadisticaMI","tipoDato","exp","expre","ImprimirE","ImprimirA","Graficar","ParametrosG","PTITULO",
              "PVALUES","PLABEL","PEJEX","PEJEY","PTILULOX","PTITULOY","gbar","gline","gpie","ghisto","ParametroC","ParametroAC","ParametroAD");
         
     private final ArrayList<Instruccion> instruccion=new ArrayList<>();

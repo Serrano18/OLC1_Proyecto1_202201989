@@ -35,6 +35,7 @@ public class Interprete {
         
             while (!this.instrucciones.isEmpty()) {
                 String instru = this.instrucciones.remove(0).getLexema();
+                System.out.println(instru);
                 switch (instru) {
                     case ("var"):
                         this.instrucciones.remove(0);//:
@@ -253,6 +254,7 @@ public class Interprete {
                  this.instrucciones.remove(0); // END
                  this.instrucciones.remove(0); // ;
             }else if(datosg.equals("EXEC")){
+                System.out.println("EXEC NDFKNWP");
                 //si viene lo grafico
                 if (tipo.equals("LINE")) {
                     //GRAFIQUE LINE
@@ -264,7 +266,6 @@ public class Interprete {
                     //grafique HISTOGRAM
                     consola += createFrequencyTable(values);
                  }
-        
                 break;
             }
         }
@@ -308,7 +309,7 @@ public class Interprete {
     }
    
     public void imprimir (){
-        this.printHash();
+        //this.printHash();
         String valor = this.instrucciones.remove(0).getLexema();//puede venir un COLUIMN O UN PRINT
         this.instrucciones.remove(0);//Viene un = 
         if(valor.equals("PRINT")){
@@ -388,6 +389,7 @@ public class Interprete {
                     }else{
                         consola += "\nNo se reconocio "+col;
                     }
+                    
                 }
             }else{
                 if(this.hash.containsKey(col)){

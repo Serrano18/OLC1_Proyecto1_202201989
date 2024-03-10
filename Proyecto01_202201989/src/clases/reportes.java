@@ -8,6 +8,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Map;
 
 public class reportes {
     //codigo complementado con chatsito y mio 
@@ -95,4 +96,51 @@ public class reportes {
             e.printStackTrace();
         }
     }
+   
+   public static void generarReporteSimbolos() {
+        try (FileWriter fw = new FileWriter("REPORTE DE SIMBOLOS.html")) {
+            fw.write("<html><head><title>Tabla de Simbolos</title>");
+            fw.write("<style>");
+            fw.write("table {");
+            fw.write("    width: 70%;"); // Ajustar el ancho de la tabla según tus necesidades
+            fw.write("    margin: 0 auto;");
+            fw.write("    border-collapse: collapse;");
+            fw.write("}");
+            fw.write("th, td {");
+            fw.write("    border: 1px solid black;");
+            fw.write("    padding: 8px;");
+            fw.write("    text-align: left;");
+            fw.write("}");
+            fw.write("th {");
+            fw.write("    background-color: #f2f2f2;");
+            fw.write("}");
+            fw.write("</style>");
+            fw.write("</head><body>");
+            fw.write("<h1 style=\"text-align:center;\">Tabla de Tokens</h1>");
+            fw.write("<table>");
+            fw.write("<tr><th>ID</th><th>ID</th><th>Nombre</th><th>Tipo</th><th>Columna</th><th>Línea</th></tr>");
+            int contador = 0;
+            for (Map.Entry<String, Valores> entry : Interprete.hash.entrySet()) {
+                Valores valor = entry.getValue();
+                fw.write("<tr>");
+                fw.write("<td>" + contador + "</td>");
+                fw.write("<td>" + valor.getNombre() + "</td>");
+                fw.write("<td>" + valor.getTipo() + "</td>");
+                fw.write("<td>" + valor.getValorParaTabla() + "</td>");
+                fw.write("<td>" + valor.getFila() + "</td>");
+                fw.write("<td>" + valor.getColumna() + "</td>");
+                fw.write("</tr>");
+                contador ++;
+            }
+            fw.write("</table>");
+            fw.write("</body></html>");
+
+            // Abrir el archivo generado
+            File file = new File("REPORTE DE SIMBOLOS.html");
+            Desktop.getDesktop().open(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -477,6 +477,7 @@ public class DataForge extends javax.swing.JFrame {
 
     private void New3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_New3ActionPerformed
         // TODO add your handling code here:
+        reportes.generarReporteSimbolos();
     }//GEN-LAST:event_New3ActionPerformed
 
     /**

@@ -31,7 +31,19 @@ public class Valores {
         this.arrayD = arrayD;
         this.tipo = tipo;
     }
-
+    public String getValorParaTabla() {
+        if (valorC != null) {
+            return valorC;
+        } else if (valord !=  (float) 454333333433.333) {
+            return String.valueOf(valord);
+        } else if (arrayS != null && !arrayS.isEmpty()) {
+            return arrayS.toString();
+        } else if (arrayD != null && !arrayD.isEmpty()) {
+            return arrayD.toString();
+        } else {
+            return "";
+        }
+    }
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }

@@ -24,7 +24,7 @@ public class Arbol {
              "EstadisticaMO","EstadisticaMI","tipoDato","exp","expre","ImprimirE","ImprimirA","Graficar","ParametrosG","PTITULO",
              "PVALUES","PLABEL","PEJEX","PEJEY","PTILULOX","PTITULOY","gbar","gline","gpie","ghisto","ParametroC","ParametroAC","ParametroAD");
         
-    private final ArrayList<Instruccion> instruccion=new ArrayList<>();
+    private  ArrayList<Instruccion> instruccion=new ArrayList<>();
     
         public Arbol(String lex, int fila, int columna) {
         this.fila = fila;

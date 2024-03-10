@@ -16,8 +16,8 @@ import java.util.concurrent.CompletableFuture;
 
 public class Interprete {
     
-    private final HashMap<String,Valores> hash = new HashMap<>();
-    private final ArrayList<Instruccion> instrucciones;
+    private static HashMap<String,Valores> hash = new HashMap<>();
+    private static ArrayList<Instruccion> instrucciones;
     private List<String> aritmeticas = Arrays.asList("SUM","RES","MUL","DIV","MOD");
     private List<String> estadisticas = Arrays.asList("MEDIA","MEDIANA","VARIANZA","MAX","MODA","MIN");
     private String consola;
@@ -74,6 +74,7 @@ public class Interprete {
     }
     
     public void graficarbaryline(String tipo){
+
         String titulo = "Grafica";
         String titulox = "Graficax";
         String tituloy = "Graficay";
@@ -87,6 +88,7 @@ public class Interprete {
             //eje y recibe array float
             //eje x recibe array string
             if(datosg.equals("TITULO") || datosg.equals("TITULOX") || datosg.equals("TITULOY")){
+
                 String temporal = "";
                 this.instrucciones.remove(0);//::
                 this.instrucciones.remove(0);//char[]
@@ -101,7 +103,7 @@ public class Interprete {
                     temporal=this.instrucciones.remove(0).getLexema();//String
                 }
                 this.instrucciones.remove(0); // END
-                this.instrucciones.remove(0); // ;
+               this.instrucciones.remove(0); // ;
                 switch (datosg){
                     case("TITULO"):
                         titulo = temporal;
@@ -113,7 +115,9 @@ public class Interprete {
                         tituloy = temporal;
                         break;
                 }
+                System.out.println(temporal);
             }else if(datosg.equals("EJEY")){
+                
                 ejey = new ArrayList<>();
                 this.instrucciones.remove(0);//::
                 this.instrucciones.remove(0);//double
@@ -122,11 +126,8 @@ public class Interprete {
                 datosg = this.instrucciones.remove(0).getLexema();
                 if(datosg == "["){
                     while (true){
-                        float num = this.getvalorfloat();
-                        if(num!=0){
-                            ejey.add(this.getvalorfloat());
-                        }
-                        if(this.instrucciones.remove(0).getLexema() == "]"){ //,
+                         ejey.add(this.getvalorfloat());
+                        if(this.instrucciones.remove(0).getLexema()== "]"){ //,
                             break;
                         }
                     }
@@ -146,6 +147,7 @@ public class Interprete {
                 this.instrucciones.remove(0); // ;
             }else if(datosg.equals("EJEX")){
                  //string
+                 
                  ejex = new ArrayList<>();
                  this.instrucciones.remove(0);//::
                  this.instrucciones.remove(0);//char[]
@@ -184,6 +186,7 @@ public class Interprete {
                  this.instrucciones.remove(0); // END
                  this.instrucciones.remove(0); // ;
             }else if(datosg.equals("VALUES")){
+                
                 values = new ArrayList<>();
                 this.instrucciones.remove(0);//::
                 this.instrucciones.remove(0);//double
@@ -192,11 +195,8 @@ public class Interprete {
                 datosg = this.instrucciones.remove(0).getLexema();
                 if(datosg == "["){
                     while (true){
-                        float num = this.getvalorfloat();
-                        if(num!=0){
-                            values.add(this.getvalorfloat());
-                        }
-                        if(this.instrucciones.remove(0).getLexema() == "]"){ //,
+                          values.add(this.getvalorfloat());
+                        if(this.instrucciones.remove(0).getLexema()== "]"){ //,
                             break;
                         }
                     }
@@ -215,6 +215,7 @@ public class Interprete {
                 this.instrucciones.remove(0); // END
                 this.instrucciones.remove(0); // ;
             }else if(datosg.equals("LABEL")){
+                
                  //string
                  labels = new ArrayList<>();
                  this.instrucciones.remove(0);//::
@@ -254,7 +255,6 @@ public class Interprete {
                  this.instrucciones.remove(0); // END
                  this.instrucciones.remove(0); // ;
             }else if(datosg.equals("EXEC")){
-                System.out.println("EXEC NDFKNWP");
                 //si viene lo grafico
                 if (tipo.equals("LINE")) {
                     //GRAFIQUE LINE
@@ -288,7 +288,7 @@ public class Interprete {
         // Agregar el título de la tabla
         table.append("\nAnálisis de Arreglo\n");
         // Agregar los nombres de las columnas
-        table.append(String.format("%-10s %-10s %-20s %-20s\n", "Valor", "Frecuencia", "Frecuencia Acumulada", "Frecuencia Relativa"));
+        table.append(String.format("%-10s %-10s %-20s %-20s\n", "Valor", "F", "FA", "FR"));
         // Calcular los totales
         int totalFrequency = 0;
         int totalAbsoluteFrequency = 0;

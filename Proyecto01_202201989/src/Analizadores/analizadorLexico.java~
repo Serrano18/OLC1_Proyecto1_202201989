@@ -910,7 +910,7 @@ public class analizadorLexico implements java_cup.runtime.Scanner {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
             { arreglos_publicos.contadorE = arreglos_publicos.contadorE + 1;
-        String descrip = "El caracter " + yytext() + "no pertenece al lenguaje";
+        String descrip = "El caracter " + yytext() + " no pertenece al lenguaje";
         arreglos_publicos.errores.add(new  Error_(arreglos_publicos.contadorE, yyline,yycolumn,descrip,"Lexico"));
         System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn);
             }

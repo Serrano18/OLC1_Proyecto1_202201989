@@ -365,11 +365,17 @@ public class DataForge extends javax.swing.JFrame {
                 Analizadores.analizadorLexico lexer = new Analizadores.analizadorLexico(new StringReader(selectedTextArea.getText())); //para llamar impoprt o llamamo asi
                 Analizadores.Parser parser = new Analizadores.Parser(lexer);
                 Arbol arbol_sintactico = (Arbol)parser.parse().value; //Parseo el .value me devuelve el analizador sintactico
-                //arbol_sintactico.printArbol(arbol_sintactico);
+                arbol_sintactico.printArbol(arbol_sintactico);
                 arbol_sintactico.guardarArbol(arbol_sintactico);
+                System.out.println("moriste");
                 Interprete interprete = new Interprete(arbol_sintactico);
+                System.out.println("valiste");
                 interprete.run();
-               String respuesta=interprete.getConsola();
+                System.out.println("print");
+                String respuesta = interprete.getConsola();
+                System.out.println("pendeja");
+                Consola.append(respuesta);
+                System.out.println(respuesta);
                //aqui debo mandar respuesta a Consola que es mi jtext area
             } catch (Exception e) {
                 System.out.println("Error fatal en compilación de entrada.");

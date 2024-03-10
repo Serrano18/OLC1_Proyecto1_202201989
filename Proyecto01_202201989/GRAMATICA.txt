@@ -30,7 +30,7 @@ comienza en inicio
 
 <arreglo> ::= "[" <lista_expre> "]"   |   IDARR
 
-<lis  ta_expre> ::= <lista_expre> "," <expresion> |   <expresion>
+<lista_expre> ::= <lista_expre> "," <expresion> |   <expresion>
 
 <funciones> ::= <aritmetica> "(" <expresion> "," <expresion> ")"  | <estadistica> "(" <arreglo> ")"
 

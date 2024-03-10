@@ -37,6 +37,7 @@ public class DataForge extends javax.swing.JFrame {
      */
     public DataForge() {
         initComponents();
+        Consola.setFocusable(false);
     }
 
     /**
@@ -90,6 +91,7 @@ public class DataForge extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Entrada");
 
+        Consola.setEditable(false);
         Consola.setBackground(new java.awt.Color(255, 255, 255));
         Consola.setColumns(20);
         Consola.setForeground(new java.awt.Color(0, 0, 0));
@@ -367,14 +369,14 @@ public class DataForge extends javax.swing.JFrame {
                 Arbol arbol_sintactico = (Arbol)parser.parse().value; //Parseo el .value me devuelve el analizador sintactico
                 arbol_sintactico.printArbol(arbol_sintactico);
                 arbol_sintactico.guardarArbol(arbol_sintactico);
-                System.out.println("moriste");
                 Interprete interprete = new Interprete(arbol_sintactico);
-                System.out.println("valiste");
                 interprete.run();
-                System.out.println("print");
                 String respuesta = interprete.getConsola();
-                System.out.println("pendeja");
+                
+                Consola.setEditable(true);
+
                 Consola.append(respuesta);
+                Consola.setEditable(false);
                 System.out.println(respuesta);
                //aqui debo mandar respuesta a Consola que es mi jtext area
             } catch (Exception e) {

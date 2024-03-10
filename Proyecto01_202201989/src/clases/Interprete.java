@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class Interprete {
@@ -49,18 +50,22 @@ public class Interprete {
                         break;
                         
                     case ("BAR"): //bar y line tienen los mismo parametros
-                        this.instrucciones.remove(0);
+                        this.instrucciones.remove(0); //(
                         this.graficarbaryline("BAR");
                         break;
-                       
-                         
                     case ("LINE"):
-                        
+                            this.instrucciones.remove(0); //(
+                            this.graficarbaryline("LINE");
+                            break;
                     case ("PIE"):
+                        this.instrucciones.remove(0); //(
+                        this.graficarbaryline("PIE");
+                        break;
                         
                     case ("HISTOGRAM"):
-                        
-               
+                        this.instrucciones.remove(0); //(
+                        this.graficarbaryline("HISTOGRAM");
+                        break;
                 }
             
             
@@ -73,8 +78,10 @@ public class Interprete {
         String tituloy = "Graficay";
         ArrayList<Float> ejey = new ArrayList<>();
         ArrayList<String> ejex = new ArrayList<>();
+        ArrayList<String> labels = new ArrayList<>();
+        ArrayList<Float> values = new ArrayList<>();
         while(true){
-            String datosg = this.instrucciones.remove(0).getLexema();//Titulo, titulox, tituloy, ejex y ejey
+            String datosg = this.instrucciones.remove(0).getLexema();//Titulo, titulox, tituloy, ejex y ejey, label, value, exec
             //Verificamos los que sean igual titulo titulox y tituloy reciben los mismos datos
             //eje y recibe array float
             //eje x recibe array string
@@ -83,9 +90,9 @@ public class Interprete {
                 this.instrucciones.remove(0);//::
                 this.instrucciones.remove(0);//char[]
                 this.instrucciones.remove(0);//=
-                if(this.hash.containsKey(this.instrucciones.get(0))){
-                    if(this.hash.get(this.instrucciones.get(0)).getValorC()!= null){
-                        temporal = this.hash.get(this.instrucciones.remove(0)).getValorC();
+                if(this.hash.containsKey(this.instrucciones.get(0).getLexema())){
+                    if(this.hash.get(this.instrucciones.get(0).getLexema()).getValorC()!= null){
+                        temporal = this.hash.get(this.instrucciones.remove(0).getLexema()).getValorC();
                     }else{
                         this.instrucciones.remove(0);
                     }
@@ -106,21 +113,161 @@ public class Interprete {
                         break;
                 }
             }else if(datosg.equals("EJEY")){
-
-            }else if(datosg.equals("EJEY")){
-                
-
+                ejey = new ArrayList<>();
+                this.instrucciones.remove(0);//::
+                this.instrucciones.remove(0);//double
+                this.instrucciones.remove(0);//=
+                //o viene [ o idarreglo
+                datosg = this.instrucciones.remove(0).getLexema();
+                if(datosg == "["){
+                    while (true){
+                        float num = this.getvalorfloat();
+                        if(num!=0){
+                            ejey.add(this.getvalorfloat());
+                        }
+                        if(this.instrucciones.remove(0).getLexema() == "]"){ //,
+                            break;
+                        }
+                    }
+                }else{
+                    //idarr
+                    if(this.hash.containsKey(datosg)){
+                        if(this.hash.get(datosg).getArrayD() != null){
+                            ejey = this.hash.get(datosg).getArrayD();
+                        } else{
+                            ejey = null;
+                        }
+                    } else if (this.convertidoafloat(datosg)){
+                        ejey.add(Float.parseFloat(datosg));
+                    }
+                }
+                this.instrucciones.remove(0); // END
+                this.instrucciones.remove(0); // ;
+            }else if(datosg.equals("EJEX")){
+                 //string
+                 ejex = new ArrayList<>();
+                 this.instrucciones.remove(0);//::
+                 this.instrucciones.remove(0);//char[]
+                 this.instrucciones.remove(0);//=
+                 datosg = this.instrucciones.remove(0).getLexema();
+                 if(datosg == "["){ //o vienen String o vienen id
+                     while (true){
+                        datosg = this.instrucciones.remove(0).getLexema();
+                         if(this.hash.containsKey(datosg)){
+                            if(this.hash.get(datosg).getValorC() != null){
+                                ejex.add(this.hash.get(datosg).getValorC());
+                            } else{
+                                ejex.add(datosg+"No es String");
+                            }
+                         }else if (datosg.endsWith("”") || datosg.endsWith("\"")){
+                            ejex.add(datosg);
+                         }else{
+                            ejex.add(datosg+" no es id, ni string");
+                         }
+                         if(this.instrucciones.remove(0).getLexema() == "]"){ //,
+                             break;
+                         }
+                     }
+                 }else{
+                     //idarr
+                     if(this.hash.containsKey(datosg)){
+                         if(this.hash.get(datosg).getArrayS() != null){
+                             ejex = this.hash.get(datosg).getArrayS();
+                         } else{
+                             ejex = null;
+                         }
+                     } else{
+                        ejex.add(datosg);
+                     }
+                 }
+                 this.instrucciones.remove(0); // END
+                 this.instrucciones.remove(0); // ;
+            }else if(datosg.equals("VALUES")){
+                values = new ArrayList<>();
+                this.instrucciones.remove(0);//::
+                this.instrucciones.remove(0);//double
+                this.instrucciones.remove(0);//=
+                //o viene [ o idarreglo
+                datosg = this.instrucciones.remove(0).getLexema();
+                if(datosg == "["){
+                    while (true){
+                        float num = this.getvalorfloat();
+                        if(num!=0){
+                            values.add(this.getvalorfloat());
+                        }
+                        if(this.instrucciones.remove(0).getLexema() == "]"){ //,
+                            break;
+                        }
+                    }
+                }else{
+                    //idarr
+                    if(this.hash.containsKey(datosg)){
+                        if(this.hash.get(datosg).getArrayD() != null){
+                            values = this.hash.get(datosg).getArrayD();
+                        } else{
+                            values = null;
+                        }
+                    } else if (this.convertidoafloat(datosg)){
+                        values.add(Float.parseFloat(datosg));
+                    }
+                }
+                this.instrucciones.remove(0); // END
+                this.instrucciones.remove(0); // ;
+            }else if(datosg.equals("LABEL")){
+                 //string
+                 labels = new ArrayList<>();
+                 this.instrucciones.remove(0);//::
+                 this.instrucciones.remove(0);//char[]
+                 this.instrucciones.remove(0);//=
+                 datosg = this.instrucciones.remove(0).getLexema();
+                 if(datosg == "["){ //o vienen String o vienen id
+                     while (true){
+                        datosg = this.instrucciones.remove(0).getLexema();
+                         if(this.hash.containsKey(datosg)){
+                            if(this.hash.get(datosg).getValorC() != null){
+                                labels.add(this.hash.get(datosg).getValorC());
+                            } else{
+                                labels.add(datosg+"No es String");
+                            }
+                         }else if (datosg.endsWith("”") || datosg.endsWith("\"")){
+                            labels.add(datosg);
+                         }else{
+                            labels.add(datosg+" no es id, ni string");
+                         }
+                         if(this.instrucciones.remove(0).getLexema() == "]"){ //,
+                             break;
+                         }
+                     }
+                 }else{
+                     //idarr
+                     if(this.hash.containsKey(datosg)){
+                         if(this.hash.get(datosg).getArrayS() != null){
+                             ejex = this.hash.get(datosg).getArrayS();
+                         } else{
+                             ejex = null;
+                         }
+                     } else{
+                        ejex.add(datosg);
+                     }
+                 }
+                 this.instrucciones.remove(0); // END
+                 this.instrucciones.remove(0); // ;
             }else if(datosg.equals("EXEC")){
                 //si viene lo grafico
                 if (tipo.equals("LINE")) {
                     //GRAFIQUE LINE
-                } else{
+                } else if (tipo.equals("BAR")) {
                    //grafique barra
-                }
+                } else if (tipo.equals("PIE")) {
+                    //grafique PIE
+                } else if (tipo.equals("HISTOGRAM")) {
+                    //grafique HISTOGRAM
+                    consola += createFrequencyTable(values);
+                 }
+        
                 break;
             }
         }
-         
             //this.instrucciones.remove(0); // END
             //this.instrucciones.remove(0); // ;
             this.instrucciones.remove(0); // )
@@ -128,6 +275,38 @@ public class Interprete {
             this.instrucciones.remove(0); // ;
         
     }
+    
+    public String createFrequencyTable(ArrayList<Float> numbers) {
+        // Calcular la frecuencia de cada número
+        Map<Float, Integer> frequencyMap = new HashMap<>();
+        for (float number : numbers) {
+            frequencyMap.put(number, frequencyMap.getOrDefault(number, 0) + 1);
+        }
+        // Crear el StringBuilder para la tabla
+        StringBuilder table = new StringBuilder();
+        // Agregar el título de la tabla
+        table.append("\nAnálisis de Arreglo\n");
+        // Agregar los nombres de las columnas
+        table.append(String.format("%-10s %-10s %-20s %-20s\n", "Valor", "Frecuencia", "Frecuencia Acumulada", "Frecuencia Relativa"));
+        // Calcular los totales
+        int totalFrequency = 0;
+        int totalAbsoluteFrequency = 0;
+        float totalRelativeFrequency = 0;
+        // Recorrer el HashMap y agregar cada fila a la tabla
+        for (Map.Entry<Float, Integer> entry : frequencyMap.entrySet()) {
+            float value = entry.getKey();
+            int frequency = entry.getValue();
+            totalAbsoluteFrequency += frequency;
+            float relativeFrequency = (float) frequency / numbers.size();
+            table.append(String.format("%-10.2f %-10d %-20d %-20.2f\n", value, frequency, totalAbsoluteFrequency, relativeFrequency));
+            totalFrequency += frequency;
+            totalRelativeFrequency += relativeFrequency;
+        }
+        // Agregar los totales a la tabla
+        table.append(String.format("%-10s %-10d %-20d %-20.2f\n", "Total", totalFrequency, totalAbsoluteFrequency, totalRelativeFrequency));
+        return table.toString();
+    }
+   
     public void imprimir (){
         this.printHash();
         String valor = this.instrucciones.remove(0).getLexema();//puede venir un COLUIMN O UN PRINT
@@ -282,7 +461,7 @@ public class Interprete {
                 ArrayList<Float> arreglofl = new ArrayList<>();
                 while(true){
                     arreglofl.add(this.getvalorfloat());
-                    if(this.instrucciones.remove(0).getLexema() == "]"){
+                    if("]".equals(this.instrucciones.remove(0).getLexema())){
                         break;
                     }
                 }
@@ -326,8 +505,7 @@ public class Interprete {
         }
         return numero;
     }
-    
-   
+  
     public boolean convertidoafloat(String entrada){
         try{
             Float.parseFloat(entrada);
@@ -338,6 +516,7 @@ public class Interprete {
         }
     
     }
+    
     public float funcionesaritmeticas(String operacion){
         float num1 = 0, num2=0;
         this.instrucciones.remove(0);//elimina (
@@ -368,7 +547,6 @@ public class Interprete {
         }
         return suma/arreglo.size();
     }
-    //calcular moda
     public float moda(ArrayList<Float> arreglo){
         float moda = 0;
         int maximo = 0;
@@ -411,7 +589,7 @@ public class Interprete {
         this.instrucciones.remove(0);//(
         String valor = this.instrucciones.remove(0).getLexema();
         //id o numeros por lo tanto es necesario saber si se puede parsear
-            if(valor!="["){
+            if(!"[".equals(valor)){
                 seleccionado = true;
             }
             if (seleccionado){
@@ -423,7 +601,7 @@ public class Interprete {
             }else{
                 while(true){
                     arreglodob.add(this.getvalorfloat());
-                    if(this.instrucciones.remove(0).getLexema() == "]"){
+                    if("]".equals(this.instrucciones.remove(0).getLexema())){
                         break;
                     }
                 }
@@ -469,7 +647,7 @@ public class Interprete {
         
         
     
-    }
+}
     
     
     

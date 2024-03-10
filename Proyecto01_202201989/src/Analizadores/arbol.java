@@ -34,9 +34,7 @@ public class Arbol {
     }
 
 
-    public ArrayList<Instruccion> getInstruccion(Arbol arbol) {
-        return instruccion;
-    }
+ 
     
     public void setFila(int fila) {
         this.fila = fila;
@@ -87,7 +85,9 @@ public class Arbol {
 	}
         
         public void guardarArbol (Arbol guardado){
-            if(guardado.hijos.contains(null)){
+            if(guardado==null){
+                return;
+            }else if(guardado.lex.equals("ERR")){
                 return;
             }
             for (Arbol hijo : guardado.hijos){
@@ -98,4 +98,10 @@ public class Arbol {
             }
             
         }
+        public ArrayList<Instruccion> getInstruccion(Arbol arbol) {
+            this.instruccion = new ArrayList<Instruccion>();
+            guardarArbol(arbol);
+            return this.instruccion;
+        }
 }
+

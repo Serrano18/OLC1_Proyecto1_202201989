@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class Interprete {
     
-    private static HashMap<String,Valores> hash = new HashMap<>();
+    public static HashMap<String,Valores> hash = new HashMap<>();
     private static ArrayList<Instruccion> instrucciones;
     private List<String> aritmeticas = Arrays.asList("SUM","RES","MUL","DIV","MOD");
     private List<String> estadisticas = Arrays.asList("MEDIA","MEDIANA","VARIANZA","MAX","MODA","MIN");

@@ -88,8 +88,8 @@ public class Main {
                          """;
 
         analizar(entrada);
-        reportes.generarReporteTokens();
-        reportes.generarReporteErrores();
+        //reportes.generarReporteTokens();
+        //reportes.generarReporteErrores();
     }
 
     public static void analizadores(String ruta, String jflexFile, String cupFile) {

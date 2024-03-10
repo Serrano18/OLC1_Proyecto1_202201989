@@ -6,13 +6,11 @@ package clases;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author evams
- */
 public class arreglos_publicos {
     public static ArrayList<Token> tokens = new ArrayList<Token>();
     public static int contador = 0;
     public static ArrayList<Error_> errores = new ArrayList<Error_> ();
     public static int contadorE = 0;
+    public static ArrayList<Simbolo> simbolos = new ArrayList<Simbolo> ();
+    public static int contadorS = 0;
 }

@@ -273,7 +273,7 @@ public class Parser extends java_cup.runtime.lr_parser {
     public void syntax_error(Symbol s)
     {
             arreglos_publicos.contadorE = arreglos_publicos.contadorE + 1;
-        String descrip = "Se encontro " + s.value  + "se esperaba otra cosa";
+        String descrip = "Se encontro " + s.value  + " el cual no se esperaba";
         arreglos_publicos.errores.add(new  Error_(arreglos_publicos.contadorE, s.right, s.left,descrip,"Sintactico"));
             System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado" );
     }

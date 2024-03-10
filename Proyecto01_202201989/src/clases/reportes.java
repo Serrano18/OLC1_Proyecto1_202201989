@@ -9,10 +9,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/**
- *
- * @author evams
- */
 public class reportes {
     //codigo complementado con chatsito y mio 
    public static void generarReporteTokens() {

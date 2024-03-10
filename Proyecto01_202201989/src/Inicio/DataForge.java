@@ -2,6 +2,7 @@ package Inicio;
 
 
 
+import Analizadores.Arbol;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +17,8 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import clases.reportes;
+import clases.*;
+import java.io.StringReader;
 
 
 /*
@@ -51,7 +53,7 @@ public class DataForge extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        Consola = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -88,13 +90,13 @@ public class DataForge extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Entrada");
 
-        jTextArea1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextArea1.setColumns(20);
-        jTextArea1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextArea1.setRows(5);
-        jTextArea1.setMaximumSize(new java.awt.Dimension(200, 80));
-        jTextArea1.setMinimumSize(new java.awt.Dimension(200, 80));
-        jScrollPane1.setViewportView(jTextArea1);
+        Consola.setBackground(new java.awt.Color(255, 255, 255));
+        Consola.setColumns(20);
+        Consola.setForeground(new java.awt.Color(0, 0, 0));
+        Consola.setRows(5);
+        Consola.setMaximumSize(new java.awt.Dimension(200, 80));
+        Consola.setMinimumSize(new java.awt.Dimension(200, 80));
+        jScrollPane1.setViewportView(Consola);
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -349,14 +351,32 @@ public class DataForge extends javax.swing.JFrame {
 
     private void EjecutarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EjecutarMouseClicked
         // TODO add your handling code here:
+        arreglos_publicos.tokens.clear();
+        arreglos_publicos.errores.clear();
+        arreglos_publicos.contador=0;
+        arreglos_publicos.contadorE=0;
         int indice = jTabbedPane1.getSelectedIndex();
         Component panelObtenido = jTabbedPane1.getComponentAt(indice);
         
         if (panelObtenido instanceof JScrollPane jScrollPane) {
             JTextArea selectedTextArea = (JTextArea)  jScrollPane.getViewport().getView();
-            System.out.println(selectedTextArea.getText());
+            //System.out.println(selectedTextArea.getText());
+            try {
+                Analizadores.analizadorLexico lexer = new Analizadores.analizadorLexico(new StringReader(selectedTextArea.getText())); //para llamar impoprt o llamamo asi
+                Analizadores.Parser parser = new Analizadores.Parser(lexer);
+                Arbol arbol_sintactico = (Arbol)parser.parse().value; //Parseo el .value me devuelve el analizador sintactico
+                //arbol_sintactico.printArbol(arbol_sintactico);
+                arbol_sintactico.guardarArbol(arbol_sintactico);
+                Interprete interprete = new Interprete(arbol_sintactico);
+                interprete.run();
+               String respuesta=interprete.getConsola();
+               //aqui debo mandar respuesta a Consola que es mi jtext area
+            } catch (Exception e) {
+                System.out.println("Error fatal en compilación de entrada.");
+                System.out.println(e);
+            }
         }
-        
+
         System.out.println();
     }//GEN-LAST:event_EjecutarMouseClicked
 
@@ -486,6 +506,7 @@ public class DataForge extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Archivo;
+    private javax.swing.JTextArea Consola;
     private javax.swing.JMenu Ejecutar;
     private javax.swing.JMenuItem New;
     private javax.swing.JMenuItem New1;
@@ -506,6 +527,5 @@ public class DataForge extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

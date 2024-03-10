@@ -48,27 +48,85 @@ public class Interprete {
                         this.imprimir();
                         break;
                         
-                    case ("gbar"):
+                    case ("BAR"): //bar y line tienen los mismo parametros
+                        this.instrucciones.remove(0);
+                        this.graficarbaryline("BAR");
+                        break;
                        
                          
-                    case ("gline"):
+                    case ("LINE"):
                         
-                    case ("gpie"):
+                    case ("PIE"):
                         
-                    case ("ghisto"):
+                    case ("HISTOGRAM"):
                         
                
                 }
             
             
+        }  
+    }
+    
+    public void graficarbaryline(String tipo){
+        String titulo = "Grafica";
+        String titulox = "Graficax";
+        String tituloy = "Graficay";
+        ArrayList<Float> ejey = new ArrayList<>();
+        ArrayList<String> ejex = new ArrayList<>();
+        while(true){
+            String datosg = this.instrucciones.remove(0).getLexema();//Titulo, titulox, tituloy, ejex y ejey
+            //Verificamos los que sean igual titulo titulox y tituloy reciben los mismos datos
+            //eje y recibe array float
+            //eje x recibe array string
+            if(datosg.equals("TITULO") || datosg.equals("TITULOX") || datosg.equals("TITULOY")){
+                String temporal = "";
+                this.instrucciones.remove(0);//::
+                this.instrucciones.remove(0);//char[]
+                this.instrucciones.remove(0);//=
+                if(this.hash.containsKey(this.instrucciones.get(0))){
+                    if(this.hash.get(this.instrucciones.get(0)).getValorC()!= null){
+                        temporal = this.hash.get(this.instrucciones.remove(0)).getValorC();
+                    }else{
+                        this.instrucciones.remove(0);
+                    }
+                }else{
+                    temporal=this.instrucciones.remove(0).getLexema();//String
+                }
+                this.instrucciones.remove(0); // END
+                this.instrucciones.remove(0); // ;
+                switch (datosg){
+                    case("TITULO"):
+                        titulo = temporal;
+                        break;
+                    case("TITULOX"):
+                        titulox = temporal;
+                        break;
+                    case("TITULOY"):
+                        tituloy = temporal;
+                        break;
+                }
+            }else if(datosg.equals("EJEY")){
+
+            }else if(datosg.equals("EJEY")){
+                
+
+            }else if(datosg.equals("EXEC")){
+                //si viene lo grafico
+                if (tipo.equals("LINE")) {
+                    //GRAFIQUE LINE
+                } else{
+                   //grafique barra
+                }
+                break;
+            }
         }
-            
-            
-   
-            
+         
+            //this.instrucciones.remove(0); // END
+            //this.instrucciones.remove(0); // ;
+            this.instrucciones.remove(0); // )
+            this.instrucciones.remove(0); // END
+            this.instrucciones.remove(0); // ;
         
-        
-          
     }
     public void imprimir (){
         this.printHash();
@@ -158,6 +216,11 @@ public class Interprete {
                         for (float numero : this.hash.get(col).getArrayD()){
                             consola +=  "\n" + numero;
                         }
+                    }else if(this.hash.get(col).getArrayS()!= null){
+                        for (String palabras : this.hash.get(col).getArrayS()){
+                            consola += "\n" + palabras;
+                        }
+
                     }else{
                         consola += "No hay datos" + col;
                     }

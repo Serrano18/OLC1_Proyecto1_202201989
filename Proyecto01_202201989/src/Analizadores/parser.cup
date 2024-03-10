@@ -382,11 +382,10 @@ grafica::= tipo_grafica:tg PARENTESIS_A parametros_grafica:pg PARENTESIS_C R_END
 
 :}
 ;
-parametros_grafica ::= lista_sentencia:ls R_EXEC:exec tipo_grafica:tg R_END PUNTOYCOMA
+parametros_grafica ::= lista_sentencia:ls tipo_grafica:tg R_END PUNTOYCOMA
 {:
     Arbol P8 = new Arbol("ParametrosG",-1,-1);
     P8.addHijo(ls);
-    P8.addHijo(new Arbol(exec.toString(),execleft,execright));
     P8.addHijo(tg);
     P8.addHijo(new Arbol("END",-1,-1));
     P8.addHijo(new Arbol(";",-1,-1));
@@ -455,6 +454,10 @@ sentencia ::= R_TITULO parametrocadena:pc
         P1.addHijo(new Arbol("TITULOY",-1,-1));
         P1.addHijo(pc);
         RESULT = P1; 
+    :}
+    | R_EXEC {:     Arbol P1 = new Arbol("PTITULOY",-1,-1);
+                    P1.addHijo(new Arbol("EXEC",-1,-1));
+                        RESULT = P1; 
     :}
 ;
 tipo_grafica ::= R_BAR 

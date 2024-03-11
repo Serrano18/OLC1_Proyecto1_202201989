@@ -116,9 +116,9 @@ public class reportes {
             fw.write("}");
             fw.write("</style>");
             fw.write("</head><body>");
-            fw.write("<h1 style=\"text-align:center;\">Tabla de Tokens</h1>");
+            fw.write("<h1 style=\"text-align:center;\">Tabla de Simbolos</h1>");
             fw.write("<table>");
-            fw.write("<tr><th>ID</th><th>ID</th><th>Nombre</th><th>Tipo</th><th>Columna</th><th>Línea</th></tr>");
+            fw.write("<tr><th>ID</th><th>ID</th><th>Nombre</th><th>Tipo</th><th>Línea</th><th>Columna</th></tr>");
             int contador = 0;
             for (Map.Entry<String, Valores> entry : Interprete.hash.entrySet()) {
                 Valores valor = entry.getValue();
@@ -127,8 +127,8 @@ public class reportes {
                 fw.write("<td>" + valor.getNombre() + "</td>");
                 fw.write("<td>" + valor.getTipo() + "</td>");
                 fw.write("<td>" + valor.getValorParaTabla() + "</td>");
-                fw.write("<td>" + valor.getFila() + "</td>");
-                fw.write("<td>" + valor.getColumna() + "</td>");
+              //  fw.write("<td>" + valor.getFila() + "</td>");
+               // fw.write("<td>" + valor.getColumna() + "</td>");
                 fw.write("</tr>");
                 contador ++;
             }

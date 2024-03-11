@@ -7,13 +7,14 @@ package clases;
 import Analizadores.Arbol;
 import java.util.HashMap;
 import clases.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-
+//Parte de todo este codigo fue guiado de clases de lfp y https://www.youtube.com/playlist?list=PLx5H_6IYW07qhMksk4Q-JQl75FcEI90_P
 public class Interprete {
     
     public static HashMap<String,Valores> hash = new HashMap<>();
@@ -258,12 +259,16 @@ public class Interprete {
                 //si viene lo grafico
                 if (tipo.equals("LINE")) {
                     //GRAFIQUE LINE
+                    Graficas.graficarLinea(titulo, titulox, tituloy, ejex, ejey);
                 } else if (tipo.equals("BAR")) {
                    //grafique barra
+                   Graficas.graficarBarra(titulo, ejex, ejey, titulox, tituloy);
                 } else if (tipo.equals("PIE")) {
+                    Graficas.graficarPie(titulo, values, labels);
                     //grafique PIE
                 } else if (tipo.equals("HISTOGRAM")) {
                     //grafique HISTOGRAM
+                    Graficas.graficarHistograma(titulo, values);
                     consola += createFrequencyTable(values);
                  }
                 break;

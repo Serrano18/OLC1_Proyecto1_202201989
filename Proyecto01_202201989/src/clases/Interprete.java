@@ -27,7 +27,6 @@ public class Interprete {
         this.instrucciones = arbol.getInstruccion(arbol);
         this.consola = "";
     }
-
     public String getConsola() {
         return consola;
     }

@@ -15,10 +15,6 @@ parser code
     
     public void syntax_error(Symbol s)
     {
-        String lexema = "NULL";
-        if (s.value != null){
-            lexema = s.value.toString();
-        }
             arreglos_publicos.contadorE = arreglos_publicos.contadorE + 1;
         String descrip = "Se encontro " + s.value  + " el cual no se esperaba";
         arreglos_publicos.errores.add(new  Error_(arreglos_publicos.contadorE, s.right, s.left,descrip,"Sintactico"));
@@ -26,10 +22,6 @@ parser code
     }
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
     {       
-        String lexema = "NULL";
-        if (s.value != null){
-            lexema = s.value.toString();
-        }
         arreglos_publicos.contadorE = arreglos_publicos.contadorE + 1;
         String descrip = "Se encontro " + s.value  + "se esperaba otra cosa y no se pudo recuperar";
         arreglos_publicos.errores.add(new  Error_(arreglos_publicos.contadorE, s.right, s.left,descrip,"Sintactico"));
@@ -110,6 +102,7 @@ lista_instr ::= lista_instr:p1 instruccion:p2
 instruccion ::= declaracion_variable:p3
     {:
         Arbol P2 = new Arbol("IntruccionDV",-1,-1);
+        
         try {
             P2.addHijo(p3);
         } catch (Exception e) {
@@ -120,6 +113,7 @@ instruccion ::= declaracion_variable:p3
     |declaracion_arreglos:p4
     {:
         Arbol P2 = new Arbol("IntruccionDA",-1,-1);
+        
         try {
             P2.addHijo(p4);
         } catch (Exception e) {
@@ -131,6 +125,7 @@ instruccion ::= declaracion_variable:p3
     |imprimir_expresiones:p5
      {:
         Arbol P2 = new Arbol("IntruccionIE",-1,-1);
+        
          try {
            P2.addHijo(p5);
         } catch (Exception e) {
@@ -286,9 +281,9 @@ funciones ::= aritmetica:p12 PARENTESIS_A expresion:p9 COMA expresion:p14 PARENT
             
              try {
              FC.addHijo(p14);
-             } catch (Exception e) {
-                 RESULT= new Arbol("ERR", -1, -1);
-             }
+        } catch (Exception e) {
+            RESULT= new Arbol("ERR", -1, -1);
+        }
             FC.addHijo(new Arbol(")",-1,-1));
             RESULT = FC;
         
@@ -296,19 +291,9 @@ funciones ::= aritmetica:p12 PARENTESIS_A expresion:p9 COMA expresion:p14 PARENT
         |estadistica:p13 PARENTESIS_A arreglo:p10 PARENTESIS_C
         {:
                 Arbol FC = new Arbol("FESTADISTICA",-1,-1);
-               
-                 try {
-                 FC.addHijo(p13);
-                } catch (Exception e) {
-                   RESULT= new Arbol("ERR", -1, -1);
-                 }
+                FC.addHijo(p13);
                 FC.addHijo(new Arbol("(",-1,-1));
-                
-                 try {
-                   FC.addHijo(p10);
-                 } catch (Exception e) {
-                    RESULT= new Arbol("ERR", -1, -1);
-                  }
+                FC.addHijo(p10);
                 FC.addHijo(new Arbol(")",-1,-1));
                 RESULT = FC;
         :}
@@ -404,12 +389,9 @@ tipo_datos ::= R_CHAR
 expresion ::= funciones:fc 
             {:
                 Arbol P9 = new Arbol("exp",-1,-1);
-                try {
-                   P9.addHijo(fc);
-                 } catch (Exception e) {
-                    RESULT= new Arbol("ERR", -1, -1);
-                  }
+                P9.addHijo(fc);
                 RESULT = P9;
+            
             :}
      |CADENA:c 
             {: 
@@ -455,12 +437,7 @@ imprimir_expresiones ::= R_CONSOLE PUNTOSDOBLE R_PRINT IGUAL lista_expre:p11 R_E
        P5.addHijo(new Arbol("::",-1,-1));
        P5.addHijo(new Arbol("PRINT",-1,-1));
        P5.addHijo(new Arbol("=",-1,-1));
-       
-        try {
-                   P5.addHijo(p11);
-                 } catch (Exception e) {
-                    RESULT= new Arbol("ERR", -1, -1);
-                  }
+       P5.addHijo(p11);
        P5.addHijo(new Arbol("END",-1,-1));
        P5.addHijo(new Arbol(";",-1,-1));
        RESULT = P5;
@@ -475,19 +452,9 @@ imprimir_arreglos ::= R_CONSOLE PUNTOSDOBLE R_COLUMN IGUAL expresion_arreglo:p11
         P6.addHijo(new Arbol("::",-1,-1));
         P6.addHijo(new Arbol("COLUMN",-1,-1));
         P6.addHijo(new Arbol("=",-1,-1));
-        
-            try {
-                   P6.addHijo(p11);
-                 } catch (Exception e) {
-                    RESULT= new Arbol("ERR", -1, -1);
-                  }
+        P6.addHijo(p11);
         P6.addHijo(new Arbol("->",-1,-1));
-        
-         try {
-                   P6.addHijo(p12);
-                 } catch (Exception e) {
-                    RESULT= new Arbol("ERR", -1, -1);
-                  }
+        P6.addHijo(p12);
         P6.addHijo(new Arbol("END",-1,-1));
         P6.addHijo(new Arbol(";",-1,-1));
         RESULT = P6;
@@ -498,19 +465,9 @@ imprimir_arreglos ::= R_CONSOLE PUNTOSDOBLE R_COLUMN IGUAL expresion_arreglo:p11
 grafica::= tipo_grafica:tg PARENTESIS_A parametros_grafica:pg PARENTESIS_C R_END PUNTOYCOMA
 {:
     Arbol P7 =new Arbol("Graficar",-1,-1);
-   
-    try {
-                   P7.addHijo(tg);
-                 } catch (Exception e) {
-                    RESULT= new Arbol("ERR", -1, -1);
-                  }
+    P7.addHijo(tg);
     P7.addHijo(new Arbol ("(",-1,-1 ));
-    
-    try {
-                   P7.addHijo(pg);
-                 } catch (Exception e) {
-                    RESULT= new Arbol("ERR", -1, -1);
-                  }
+    P7.addHijo(pg);
     P7.addHijo(new Arbol (")",-1,-1 ));
     P7.addHijo(new Arbol("END",-1,-1));
     P7.addHijo(new Arbol(";",-1,-1));
@@ -668,9 +625,6 @@ tipo_grafica ::= R_BAR
                 P13.addHijo(new Arbol("HISTOGRAM",-1,-1));
                 RESULT = P13;
                 :}
-                    | errors{:
-            RESULT = new Arbol("ERR", -1, -1); 
-    :}
 ;
 parametrocadena::= PUNTOSDOBLE R_CHAR IGUAL expresion_arreglo:ea R_END PUNTOYCOMA
      {:
@@ -678,20 +632,12 @@ parametrocadena::= PUNTOSDOBLE R_CHAR IGUAL expresion_arreglo:ea R_END PUNTOYCOM
         P6.addHijo(new Arbol("::",-1,-1));
         P6.addHijo(new Arbol("char[]",-1,-1));
         P6.addHijo(new Arbol("=",-1,-1));
-        try {
         P6.addHijo(ea);
-        } catch (Exception e) {
-        RESULT= new Arbol("ERR", -1, -1);
-        }
-        
         P6.addHijo(new Arbol("END",-1,-1));
         P6.addHijo(new Arbol(";",-1,-1));
         RESULT = P6;
- 
      :}
-         | errors{:
-            RESULT = new Arbol("ERR", -1, -1); 
-            :}
+
 ;
 parametro_arreglo_char ::=  PUNTOSDOBLE R_CHAR IGUAL arreglo:a R_END PUNTOYCOMA
 {:
@@ -700,20 +646,11 @@ parametro_arreglo_char ::=  PUNTOSDOBLE R_CHAR IGUAL arreglo:a R_END PUNTOYCOMA
         P6.addHijo(new Arbol("::",-1,-1));
         P6.addHijo(new Arbol("char[]",-1,-1));
         P6.addHijo(new Arbol("=",-1,-1));
-        
-        try {
         P6.addHijo(a);
-        } catch (Exception e) {
-        RESULT= new Arbol("ERR", -1, -1);
-        }
         P6.addHijo(new Arbol("END",-1,-1));
         P6.addHijo(new Arbol(";",-1,-1));
         RESULT = P6;
-    
 :}
-         | errors{:
-            RESULT = new Arbol("ERR", -1, -1); 
-            :}
 ;
 parametro_arreglo_double ::= PUNTOSDOBLE R_DOUBLE IGUAL arreglo:a R_END PUNTOYCOMA
 {:
@@ -721,11 +658,7 @@ parametro_arreglo_double ::= PUNTOSDOBLE R_DOUBLE IGUAL arreglo:a R_END PUNTOYCO
         P6.addHijo(new Arbol("::",-1,-1));
         P6.addHijo(new Arbol("DOUBLE",-1,-1));
         P6.addHijo(new Arbol("=",-1,-1));
-        try {
         P6.addHijo(a);
-        } catch (Exception e) {
-        RESULT= new Arbol("ERR", -1, -1);
-        }
         P6.addHijo(new Arbol("END",-1,-1));
         P6.addHijo(new Arbol(";",-1,-1));
         RESULT = P6;
@@ -741,10 +674,7 @@ error_save::= PUNTOYCOMA
     | ID:id{:
         System.out.println("Error: ID " + id + " no se encuentra en una estructura válida.");
 
-
     :}
-    | ARR:arr{:
+    | IDARR:arr{:
         System.out.println("Error: arr " + arr + " no se encuentra en una estructura válida.");
-    :}
-    ;
- 
+    :};

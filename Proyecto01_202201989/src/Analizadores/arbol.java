@@ -24,7 +24,7 @@ public class Arbol {
              "EstadisticaMO","EstadisticaMI","tipoDato","exp","expre","ImprimirE","ImprimirA","Graficar","ParametrosG","PTITULO",
              "PVALUES","PLABEL","PEJEX","PEJEY","PTILULOX","PTITULOY","gbar","gline","gpie","ghisto","ParametroC","ParametroAC","ParametroAD");
         
-    private  ArrayList<Instruccion> instruccion=new ArrayList<>();
+    private ArrayList<Instruccion> instruccion=new ArrayList<>();
     
         public Arbol(String lex, int fila, int columna) {
         this.fila = fila;
@@ -34,22 +34,12 @@ public class Arbol {
     }
 
 
- 
-    
     public void setFila(int fila) {
         this.fila = fila;
     }
 
     public void setColumna(int columna) {
         this.columna = columna;
-    }
-
-    public void setLex(String lex) {
-        this.lex = lex;
-    }
-
-    public void setHijos(ArrayList<Arbol> hijos) {
-        this.hijos = hijos;
     }
 
     public int getFila() {
@@ -60,30 +50,18 @@ public class Arbol {
         return columna;
     }
 
-    public String getLex() {
-        return lex;
-    }
 
-    public ArrayList<Arbol> getHijos() {
-        return hijos;
-    }
-
-
-	
 	public void addHijo(Arbol hijo) {
 		this.hijos.add(hijo);
         }
-        
+
 	public void printArbol(Arbol raiz) {
-            if(raiz == null){
-                return;
-            }
 		for(Arbol hijo : raiz.hijos) {
 			printArbol(hijo);
 		}
 		System.out.println(raiz.lex);
 	}
-        
+
         public void guardarArbol (Arbol guardado){
             if(guardado==null){
                 return;
@@ -95,8 +73,9 @@ public class Arbol {
             }
             if (!Ignorados.contains(guardado.lex)){
                 instruccion.add(new Instruccion(guardado.fila,guardado.columna,guardado.lex));
+                System.out.println(guardado.lex);
             }
-            
+
         }
         public ArrayList<Instruccion> getInstruccion(Arbol arbol) {
             this.instruccion = new ArrayList<Instruccion>();

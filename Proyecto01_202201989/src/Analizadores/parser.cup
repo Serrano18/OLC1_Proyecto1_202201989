@@ -15,6 +15,10 @@ parser code
     
     public void syntax_error(Symbol s)
     {
+        String lexema = "NULL";
+        if (s.value != null){
+            lexema = s.value.toString();
+        }
             arreglos_publicos.contadorE = arreglos_publicos.contadorE + 1;
         String descrip = "Se encontro " + s.value  + " el cual no se esperaba";
         arreglos_publicos.errores.add(new  Error_(arreglos_publicos.contadorE, s.right, s.left,descrip,"Sintactico"));
@@ -22,6 +26,10 @@ parser code
     }
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
     {       
+        String lexema = "NULL";
+        if (s.value != null){
+            lexema = s.value.toString();
+        }
         arreglos_publicos.contadorE = arreglos_publicos.contadorE + 1;
         String descrip = "Se encontro " + s.value  + "se esperaba otra cosa y no se pudo recuperar";
         arreglos_publicos.errores.add(new  Error_(arreglos_publicos.contadorE, s.right, s.left,descrip,"Sintactico"));
@@ -102,7 +110,6 @@ lista_instr ::= lista_instr:p1 instruccion:p2
 instruccion ::= declaracion_variable:p3
     {:
         Arbol P2 = new Arbol("IntruccionDV",-1,-1);
-        
         try {
             P2.addHijo(p3);
         } catch (Exception e) {
@@ -113,7 +120,6 @@ instruccion ::= declaracion_variable:p3
     |declaracion_arreglos:p4
     {:
         Arbol P2 = new Arbol("IntruccionDA",-1,-1);
-        
         try {
             P2.addHijo(p4);
         } catch (Exception e) {
@@ -125,7 +131,6 @@ instruccion ::= declaracion_variable:p3
     |imprimir_expresiones:p5
      {:
         Arbol P2 = new Arbol("IntruccionIE",-1,-1);
-        
          try {
            P2.addHijo(p5);
         } catch (Exception e) {
@@ -663,6 +668,9 @@ tipo_grafica ::= R_BAR
                 P13.addHijo(new Arbol("HISTOGRAM",-1,-1));
                 RESULT = P13;
                 :}
+                    | errors{:
+            RESULT = new Arbol("ERR", -1, -1); 
+    :}
 ;
 parametrocadena::= PUNTOSDOBLE R_CHAR IGUAL expresion_arreglo:ea R_END PUNTOYCOMA
      {:
@@ -679,8 +687,11 @@ parametrocadena::= PUNTOSDOBLE R_CHAR IGUAL expresion_arreglo:ea R_END PUNTOYCOM
         P6.addHijo(new Arbol("END",-1,-1));
         P6.addHijo(new Arbol(";",-1,-1));
         RESULT = P6;
+ 
      :}
-
+         | errors{:
+            RESULT = new Arbol("ERR", -1, -1); 
+            :}
 ;
 parametro_arreglo_char ::=  PUNTOSDOBLE R_CHAR IGUAL arreglo:a R_END PUNTOYCOMA
 {:
@@ -698,7 +709,11 @@ parametro_arreglo_char ::=  PUNTOSDOBLE R_CHAR IGUAL arreglo:a R_END PUNTOYCOMA
         P6.addHijo(new Arbol("END",-1,-1));
         P6.addHijo(new Arbol(";",-1,-1));
         RESULT = P6;
+    
 :}
+         | errors{:
+            RESULT = new Arbol("ERR", -1, -1); 
+            :}
 ;
 parametro_arreglo_double ::= PUNTOSDOBLE R_DOUBLE IGUAL arreglo:a R_END PUNTOYCOMA
 {:
@@ -730,7 +745,6 @@ error_save::= PUNTOYCOMA
     :}
     | ARR:arr{:
         System.out.println("Error: arr " + arr + " no se encuentra en una estructura válida.");
-
     :}
     ;
  

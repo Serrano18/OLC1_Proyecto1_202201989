@@ -1,0 +1,67 @@
+PROGRAM
+	! Archivo Calificacion Proyecto 1 Nivel Dificil
+	console::print = "Nombre: ", "Carnet: " END; #
+	console::print = "-----------------CALIFICACION ARCHIVO 3-----------------" END;
+
+    var:double::aritmetica1 <- MUL(2,-10) end;
+    ! aritmetica2 es 41
+    var:double::aritmetica2 <- sum(sum(res(sum(sum(div(aritmetica1, 2), div(mul(50,50), 50)), MUL(50,2)), 100), div(100, 100)) ,0) END; #
+    
+    arr:double::@Notas2019 <- [22, aritmetica2, 73, 46, 54, 93, 64, 75] end;
+    arr:double::@Notas2020 <- [6, 54, 29, 48, 86, 51, 94, media(@Notas2019) ] end;
+    arr:double::@Notas2021 <- [85, 17, 95, media(@Notas2019), media(@Notas2020), 57, 87, 39 ] end;
+
+
+    ! arreglos
+
+    ! promedio [59, 52.5, 57.75 ]
+    arr:double::@promedios <- [mediana(@Notas2019), mediana(@Notas2020), mediana(@Notas2021)] end;
+    arr:char[]::@periodos <- ["2019", "2020", "2021"] end;
+
+    GraphBar(
+        ejeY::double = @promedios end;
+        titulo::char[] = "Media de estudiantes 2019-2021" end;
+        tituloY::char[] = "Promedio" end;
+        ejeX::char[] = @periodos end;
+        tituloX::char[] = "Años" end;
+        titulo::char[] = "Mediana de estudiantes 2019-2021" end;
+        EXEC GraphBar end;
+    ) end;
+
+    ! varianza
+    arr:double::@varianzas <- [varianza(@Notas2019), varianza(@Notas2020), varianza(@Notas2021)] end;
+    console::print = "" end;
+    console::column = "Varianza 2019-2021" -> @varianzas end;
+	<!
+		------------------------------
+		Varianza 2019-2021
+		------------------------------
+		439.75
+        701.808594
+        613.441345
+        417.75
+		
+	!>
+
+    console::print = "" end;
+    
+    ! Histograma
+    Histogram(
+        values::double = [1, 2, 3, 4, 5, 6, 7, 8, 9] end;
+        titulo::char[] = "Analsis de datos" end;
+        values::double = [10, 20, 15, 20, 25, 20, 15, 20, 10, 20 ] end;
+        EXEC Histogram end;
+    )end;
+    
+    <!
+    #### Analsis de datos ####
+    Valor    Fb    Fa    Fr
+    10       2     2      20%
+    15       2     4      20%
+    20       5     9      50%
+    25       1     10     10%
+    Totales  10    10     100%
+    !>
+    #$
+	
+END PROGRAM

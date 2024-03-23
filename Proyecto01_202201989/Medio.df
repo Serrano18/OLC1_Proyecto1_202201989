@@ -1,0 +1,50 @@
+PROGRAM #
+	! Archivo Calificacion Proyecto 1 Nivel Medio
+	console::print = "Nombre: ", "Carnet: " END;
+	console::print = "-----------------CALIFICACION ARCHIVO 2-----------------" END;
+
+    ! aritmetica1 es 62
+    var:double::aritmetica1 <- sum(res(sum(sum(res(20, 10), mul(div(8,2),3)), 10), 20), 50) end;
+    ! aritmetica2 es 38
+    var:double::aritmetica2 <- res(90, sum(div(sum(mod(100, aritmetica1), 20), 29), 50)) end;
+    var:char[]::cadenaSalida <- "Vamos por ese:  " end;
+    console::print = cadenaSalida, sum(aritmetica1,aritmetica2), "en el lab!" end;
+    console::print = "" end;
+
+    ! arreglos
+    arr:double::@miArreglo <- [88, 18.5000, 60, 46, 29, 1.334, 23] end;
+
+    console::print = "Media de miArreglo es ", media(@miArreglo) end;
+    console::prinT = "El Maximo de miArreglo es ", max(@miArreglo) end;
+    console::prinT = "El Minimo de miArreglo es ", min(@miArreglo) end;
+#
+    arr:double::@arrayModa <- [12.3, 51, 40, 51, 60, 90, 51, 90, 45, 100] end;
+    console::print = "La Moda de arrayModa es ", moda(@arrayModa) end; 
+    <!
+        La salida deberia ser
+            Media de miArreglo es , 37.9762857
+            El Maximo de miArreglo es , 88
+            El Minimo de miArreglo es , 1.334
+            La Moda de arrayModa es , 51
+    !>
+    
+    arr:char[]::@miArreglo2 <- ["Actividad 1", "Actividad 2", "Actividad 3", "Actividad 4", "Actividad 5", "Actividad 6", "Actividad 7"] end;
+
+    graphLine(
+        ejeY::double = @miArreglo end;
+        titulo::char[] = "Grafica de Linea" end;
+        ejeX::char[] = @miArreglo2 end;
+        tituloY::char[] = "Ponderaciones" end;
+        tituloX::char[] = "Actividades" end;
+        titulo::char[] = "Ponderaciones por Actividades 2024" end;
+        EXEC graphLine end;
+    )end;
+
+
+	
+END PROGRAM #
+
+
+
+
+

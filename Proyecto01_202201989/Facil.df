@@ -1,0 +1,39 @@
+PROGRAM
+	! Archivo Calificacion Proyecto 1 Nivel Facil
+	console::print = "Nombre: "END;
+	console::print = "Carnet: " END;
+	consOlE::prinT = "-----------------CALIFICACION ARCHIVO 1-----------------" END;
+
+	<! Operaciones 
+		Aritmeticas
+	!>
+
+	var:double::aritmetica1 <- 2.0 END;
+	var:double::aritmetica2 <- 10 END;
+	var:Double::aritmetica3 <- MUL(aritmetica2,aritmetica1) END; ! debe ser 20
+	var:double::aritmetica4 <-Sum(aritmetica3, RES(50, aritmetica1)) end; ! debe de ser 68
+	console::print = "Aritmetica3",aritmetica3 end;
+	console::print = "Aritmetica4",aritmetica4 end;
+
+	arr:double::@notas <- [aritmetica4, 80] end;
+	arr:char[]::@titulos <- ["Proyecto 1", "Proyecto 2"] end;
+
+	console::print = "" end;
+	console::column = "Mis notas de lab de compi1" -> @notas end;
+	<!
+		------------------------------
+		Mi nota de lab de compi1
+		------------------------------
+		68
+		80
+	!>
+
+	graphPie(
+		label::char[] = @titulos end;
+		values::double = @notas end;
+		titulo::char[] = "Mis notas de lab de compi1" end;
+		EXEC graphPie end;
+	) end;
+	
+
+END PROGRAM
